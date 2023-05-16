@@ -1,25 +1,25 @@
+let gap;
 let platforms = [];
-
-function setup() {
-  createCanvas(400, 600);
-  frameRate(30);
-}
-
-let playerX = 0;
-let playerY = 0;
-let x = 100;
-let y = 100;
-let s = 1;
-let bennyY = 100;
-
-let xMouse = 200;
-let yMouse = 200;
-let sMouse = 0.4;
 
 let velocity = 1;
 let acceleration = 0.2;
 let speed = 0;
 let isGameActive = false;
+
+let x = 100;
+let y = 100;
+let s = 1;
+let bennyY = 100;
+let bennyX = 100;
+
+let xMouse = 200;
+let yMouse = 200;
+let sMouse = 0.4;
+
+function setup() {
+  createCanvas(700, 500);
+  frameRate(30);
+}
 
 background(135, 206, 235);
 
@@ -254,6 +254,11 @@ function platform(x, y, s) {
   rect(x, y + 95 * s, 120, 30, 10);
   fill(65, 180, 92);
   rect(x, y + 90 * s, 120, 15);
+  fill(65, 140, 0);
+  rect(x, y + 90 * s, 15, 15);
+  rect(x + 30 * s, y + 90 * s, 15, 15);
+  rect(x + 60 * s, y + 90 * s, 15, 15);
+  rect(x + 90, y + 90 * s, 15, 15);
 }
 
 function startScreen() {
@@ -281,14 +286,14 @@ function gameScreen() {
   clouds(190, 70, 0.3);
   clouds(40, 180, 0.3);
   clouds(10, 0, 0.3);
-  benny(250, bennyY, 0.4);
-  platform(100, 300, s);
+  benny(bennyX, bennyY, 0.4);
+  platform(100, 300, 1);
   mouse(280, 520, 0.2);
 
   if (isGameActive) {
     bennyY = bennyY + velocity;
     velocity = velocity + acceleration;
-    x = x + speed;
+    bennyX = bennyX + speed;
   }
 
   if (keyIsDown(38)) {
@@ -309,9 +314,6 @@ function gameScreen() {
   } else {
     speed = 0;
   }
-
-  playerX += speed;
-  playerY += velocity;
 }
 
 function gameOverScreen() {

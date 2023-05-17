@@ -21,8 +21,6 @@ function setup() {
   frameRate(30);
 }
 
-background(135, 206, 235);
-
 function clouds(x, y, s) {
   fill(255, 255, 255);
   noStroke();

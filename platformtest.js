@@ -127,9 +127,14 @@ class Benny {
     this.y = y;
     this.s = 0.35;
 
-    this.velocity = 0;
-    this.gravity = 0.1;
+    this.width = 40;
+    this.height = 60;
+
+    this.velocity = 0.3;
+    this.gravity = 0.4;
+    this.jumpForce = 3;
   }
+
   draw() {
     noStroke();
     fill(254, 225, 53);
@@ -219,10 +224,26 @@ class Benny {
     rect(this.x + 120 * this.s, this.y + 70 * this.s, 12 * this.s, 12 * this.s);
   }
   update() {
+    if (this.x + this.width < 0) this.x = width; // add this screen wrapping
+    if (this.x > width) this.x = -this.width;
+
     this.velocity += this.gravity;
     this.y += this.velocity;
+
+    if (keyIsDown(37)) {
+      this.x -= 8;
+    }
+    if (keyIsDown(39)) {
+      this.x += 8;
+    }
+  }
+
+  jump() {
+    this.velocity -= this.jumpForce;
   }
 }
+
+let benny = new Benny(160, 160);
 
 let gap;
 let platforms = []; // create the empty platform array
@@ -267,9 +288,12 @@ function gameScreen() {
     platform.draw();
   }
 
-  let benny = new Benny(160, 160);
   benny.draw();
   benny.update();
+
+  if (keyIsDown(32)) {
+    benny.jump();
+  }
 
   //   if (isGameActive) {
   //     bennyY = bennyY + velocity;

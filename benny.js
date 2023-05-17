@@ -8,7 +8,7 @@ let isGameActive = false;
 
 let x = 100;
 let y = 100;
-let s = 1;
+let this.s = 1;
 let bennyY = 100;
 let bennyX = 100;
 
@@ -338,10 +338,4 @@ function draw() {
   } else if (state === "lose") {
     gameOverScreen();
   }
-
-  /*   clouds(120, 0, 0.4);
-clouds(420, 100, 0.3);
-clouds(40, 180, 0.3);
-mouse(400, 400, 0.2);
-platform(100, 100, s); */
 }

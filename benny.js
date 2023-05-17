@@ -1,10 +1,10 @@
-let gap;
-let platforms = [];
-
-let velocity = 1;
+let velocity = 0;
 let acceleration = 0.2;
 let speed = 0;
 let isGameActive = false;
+let jumpForce = 9;
+let gravity = 0.2;
+
 
 let x = 100;
 let y = 100;
@@ -12,9 +12,9 @@ let this.s = 1;
 let bennyY = 100;
 let bennyX = 100;
 
-let xMouse = 200;
+/* let xMouse = 200;
 let yMouse = 200;
-let sMouse = 0.4;
+let sMouse = 0.4; */
 
 function setup() {
   createCanvas(700, 500);
@@ -147,9 +147,11 @@ function benny(x, y, s) {
 
   fill(255, 255, 255);
   rect(x + 120 * s, y + 70 * s, 12 * s, 12 * s);
+
+
 }
 
-function mouse(xMouse, yMouse, sMouse) {
+/* function mouse(xMouse, yMouse, sMouse) {
   // outline
 
   fill(0, 0, 0);
@@ -244,53 +246,115 @@ function mouse(xMouse, yMouse, sMouse) {
   rect(xMouse + 10 * sMouse, yMouse + 100 * sMouse, 20 * sMouse, 20 * sMouse);
   rect(xMouse + 80 * sMouse, yMouse + 100 * sMouse, 20 * sMouse, 20 * sMouse);
   rect(xMouse + 43 * sMouse, yMouse + 100 * sMouse, 20 * sMouse, 20 * sMouse);
+} */
+
+class Platform {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+
+    this.s = 0.6;
+    this.height = 15;
+    this.width = 120;
+  }
+
+  draw() {
+    fill(100, 255, 100);
+    noStroke();
+    fill(155, 118, 83);
+    rect(
+      this.x,
+      this.y + 96 * this.s,
+      this.width * this.s,
+      this.height * 2 * this.s,
+      10 * this.s
+    );
+    fill(65, 180, 92);
+    rect(
+      this.x,
+      this.y + 90 * this.s,
+      this.width * this.s,
+      this.height * this.s
+    );
+    fill(65, 140, 0);
+    rect(
+      this.x,
+      this.y + 90 * this.s,
+      (this.width / 8 * this.s,
+      this.height * this.s
+    );
+    rect(
+      this.x + 30 * this.s,
+      this.y + 90 * this.s,
+      (this.width / 8 * this.s,
+      this.height * this.s
+    );
+    rect(
+      this.x + 60 * this.s,
+      this.y + 90 * this.s,
+      (this.width / 8 * this.s,
+      this.height * this.s
+    );
+    rect(
+      this.x + 90 * this.s,
+      this.y + 90 * this.s,
+      (this.width / 8 * this.s,
+      this.height * this.s
+    );
+  }
 }
 
-function platform(x, y, s) {
-  noStroke();
-  fill(155, 118, 83);
-  rect(x, y + 95 * s, 120, 30, 10);
-  fill(65, 180, 92);
-  rect(x, y + 90 * s, 120, 15);
-  fill(65, 140, 0);
-  rect(x, y + 90 * s, 15, 15);
-  rect(x + 30 * s, y + 90 * s, 15, 15);
-  rect(x + 60 * s, y + 90 * s, 15, 15);
-  rect(x + 90, y + 90 * s, 15, 15);
+
+let gap;
+let platforms = [];
+
+let platformCount = 6;
+gap = height / platformCount;
+
+for (let i = 1; i < platformCount; i++) {
+  platforms.push(new Platform(random(150,440), height - i * gap));
 }
+
+
+
 
 function startScreen() {
   background(135, 206, 235);
   fill(30, 63, 102);
-  rect(50, 110, 300, 270);
+  rect(150, 25, 400, 450);
   fill(135, 206, 235);
   textSize(16);
-  text("Press space __ to start game.", 90, 180);
-  text("Use arrowkeys to make Benny go ", 70, 220);
-  text(" left and right", 160, 255);
-  text("Jump as high as you can", 120, 290);
-  text("Have a nice trip!", 150, 325);
+  text("Press space __ to start game.", 250, 180);
+  text("Use arrowkeys to make Benny go ", 235, 220);
+  text(" left and right", 310, 255);
+  text("Jump as high as you can", 260, 290);
+  text("Have a nice trip!", 300, 325);
+  clouds(550, 70, 0.3);
+  clouds(40, 390, 0.3);
+  clouds(10, 0, 0.3);
 
   if (keyIsDown(32)) {
     x = 100;
     velocity = 1;
-    bennyY = 100;
+    bennyY = 350;
     state = "game";
   }
 }
 
 function gameScreen() {
   background(135, 206, 235);
-  clouds(190, 70, 0.3);
-  clouds(40, 180, 0.3);
+  fill(30, 63, 102);
+  rect(150, 25, 400, 450);
+  clouds(560, 70, 0.3);
+  clouds(20, 390, 0.3);
   clouds(10, 0, 0.3);
+
   benny(bennyX, bennyY, 0.4);
-  platform(100, 300, 1);
-  mouse(280, 520, 0.2);
+  /*  platform(100, 300, 1); */
 
   if (isGameActive) {
-    bennyY = bennyY + velocity;
-    velocity = velocity + acceleration;
+    velocity += gravity;
+    bennyY += velocity;
     bennyX = bennyX + speed;
   }
 
@@ -311,6 +375,12 @@ function gameScreen() {
     speed = -5;
   } else {
     speed = 0;
+  }
+
+  /*   let platform = new Platform(100,300,1); */
+
+  for (let platform of platforms) {
+    platform.draw();
   }
 }
 

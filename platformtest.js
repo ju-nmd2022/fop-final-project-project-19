@@ -125,6 +125,7 @@ class Benny {
   constructor(x, y) {
     this.x = x;
     this.y = y;
+
     this.s = 0.35;
 
     this.width = 40;

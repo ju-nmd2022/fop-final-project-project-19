@@ -2,6 +2,7 @@ let velocity = 1;
 let acceleration = 0.2;
 let speed = 0;
 let isGameActive = false;
+let score = 0;
 
 let bennyY = 100;
 let bennyX = 100;
@@ -325,6 +326,11 @@ function gameScreen() {
     platforms.push(
       new Platform(random(150, 480), platforms[platforms.length - 1].y - gap)
     );
+  }
+
+  if (platforms[0].y > benny.y + 400) {
+    platforms.splice(0, 1);
+    score++;
   }
 
   if (keyIsDown(32)) {

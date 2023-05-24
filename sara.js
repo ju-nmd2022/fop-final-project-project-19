@@ -9,6 +9,7 @@ let score = 0;
 
 let lose;
 
+// Benny's buddy Penny
 function penny(x, y, s) {
   noStroke();
   fill(254, 225, 53);
@@ -78,6 +79,7 @@ function penny(x, y, s) {
   rect(x + 120 * s, y + 70 * s, 12 * s, 12 * s);
 }
 
+//text for lose screen
 function gameOver(x, y, s) {
   //G
   noStroke();
@@ -619,13 +621,12 @@ function gameOverScreen() {
   fill(30, 63, 102);
   rect(150, 25, 400, 450);
   fill(135, 206, 235);
-
+  penny(10, 280, 1.5);
   gameOver(210, 70, 0.7);
-  //   textSize(50);
-  //   text("GAME OVER", 200, 190);
-  penny(200, 250, 1.5);
-  //   textSize(25);
-  //   text("Press enter to try again", 224, 240);
+
+  fill(255, 255, 255);
+  textSize(19);
+  text("PRESS ENTER TO TRY AGAIN", 215, 290);
 
   if (keyIsDown(13)) {
     state = "start";

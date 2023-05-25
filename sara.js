@@ -5,7 +5,11 @@ let isGameActive = false;
 
 let bennyY = 100;
 let bennyX = 100;
+let score = 0;
 
+let lose;
+
+// Benny's buddy Penny
 function penny(x, y, s) {
   noStroke();
   fill(254, 225, 53);
@@ -73,6 +77,93 @@ function penny(x, y, s) {
 
   fill(255, 255, 255);
   rect(x + 120 * s, y + 70 * s, 12 * s, 12 * s);
+}
+
+//text for lose screen
+function gameOver(x, y, s) {
+  //G
+  noStroke();
+  fill(255, 255, 255);
+  rect(x, y, 80 * s, 120 * s);
+
+  fill(30, 63, 102);
+  rect(x, y, 80 * s, 20 * s);
+  rect(x, y + 20 * s, 20 * s, 20 * s);
+  rect(x + 40 * s, y + 40 * s, 40 * s, 20 * s);
+  rect(x + 20 * s, y + 40 * s, 20, 40 * s);
+  rect(x + 20 * s, y + 80 * s, 40 * s, 20 * s);
+  rect(x, y, 80 * s, 20 * s);
+
+  //A
+  fill(255, 255, 255);
+  rect(x + 100 * s, y, 80 * s, 120 * s);
+
+  fill(30, 63, 102);
+  rect(x + 100 * s, y, 80 * s, 20 * s);
+  rect(x + 100 * s, y + 20 * s, 20 * s, 20 * s);
+  rect(x + 120 * s, y + 40 * s, 40 * s, 20 * s);
+  rect(x + 120 * s, y + 80 * s, 40 * s, 40 * s);
+
+  //M
+  fill(255, 255, 255);
+  rect(x + 200 * s, y + 20 * s, 20 * s, 100 * s);
+  rect(x + 220 * s, y + 40 * s, 20 * s, 20 * s);
+  rect(x + 240 * s, y + 60 * s, 20 * s, 20 * s);
+  rect(x + 260 * s, y + 40 * s, 20 * s, 20 * s);
+  rect(x + 280 * s, y + 20 * s, 20 * s, 100 * s);
+
+  //E
+  fill(255, 255, 255);
+  rect(x + 320 * s, y, 80 * s, 120 * s);
+
+  fill(30, 63, 102);
+  rect(x + 320 * s, y, 80 * s, 20 * s);
+  rect(x + 340 * s, y + 40 * s, 60 * s, 20 * s);
+  rect(x + 340 * s, y + 80 * s, 60 * s, 20 * s);
+  rect(x + 380 * s, y + 60 * s, 20 * s, 20 * s);
+
+  //O
+  fill(255, 255, 255);
+  rect(x, y + 140 * s, 80 * s, 120 * s);
+
+  fill(30, 63, 102);
+  rect(x, y + 140 * s, 80 * s, 20 * s);
+  rect(x, y + 240 * s, 20 * s, 20 * s);
+  rect(x + 60 * s, y + 160 * s, 20 * s, 20 * s);
+  rect(x + 20 * s, y + 180 * s, 40 * s, 60 * s);
+
+  //V
+  fill(255, 255, 255);
+  rect(x + 100 * s, y + 160 * s, 20 * s, 60 * s);
+  rect(x + 120 * s, y + 200 * s, 20 * s, 20 * s);
+  rect(x + 120 * s, y + 220 * s, 20 * s, 20 * s);
+  rect(x + 140 * s, y + 220 * s, 20 * s, 20 * s);
+  rect(x + 140 * s, y + 240 * s, 20 * s, 20 * s);
+  rect(x + 160 * s, y + 220 * s, 20 * s, 20 * s);
+  rect(x + 160 * s, y + 200 * s, 20 * s, 20 * s);
+  rect(x + 180 * s, y + 160 * s, 20 * s, 60 * s);
+
+  //E
+  fill(255, 255, 255);
+  rect(x + 220 * s, y + 140 * s, 80 * s, 120 * s);
+
+  fill(30, 63, 102);
+  rect(x + 220 * s, y + 140 * s, 80 * s, 20 * s);
+  rect(x + 240 * s, y + 180 * s, 60 * s, 20 * s);
+  rect(x + 240 * s, y + 220 * s, 60 * s, 20 * s);
+  rect(x + 280 * s, y + 200 * s, 20 * s, 20 * s);
+
+  //R
+  fill(255, 255, 255);
+  rect(x + 320 * s, y + 140 * s, 80 * s, 120 * s);
+
+  fill(30, 63, 102);
+  rect(x + 320 * s, y + 140 * s, 80 * s, 20 * s);
+  rect(x + 380 * s, y + 160 * s, 20 * s, 20 * s);
+  rect(x + 340 * s, y + 180 * s, 40 * s, 20 * s);
+  rect(x + 380 * s, y + 220 * s, 20 * s, 20 * s);
+  rect(x + 340 * s, y + 240 * s, 40 * s, 20 * s);
+  rect(x + 340 * s, y + 220 * s, 20 * s, 20 * s);
 }
 
 function mouse(xMouse, yMouse, sMouse) {
@@ -510,6 +601,10 @@ function gameScreen() {
       new Platform(random(150, 480), platforms[platforms.length - 1].y - gap)
     );
   }
+  if (platforms[0].y > benny.y + 600) {
+    platforms.splice(0, 1);
+    score++;
+  }
 
   if (keyIsDown(32)) {
     benny.jump();
@@ -519,38 +614,26 @@ function gameScreen() {
     isGameActive = false;
     state = "lose";
   }
-
-  //   if (bennyY > 500) {
-  //     isGameActive = false;
-  //     state = "lose";
-  //   }
-
-  //   if (keyIsDown(38)) {
-  //     velocity = velocity - 0.5;
-  //   } else if (keyIsDown(39)) {
-  //     speed = 5;
-  //   } else if (keyIsDown(37)) {
-  //     speed = -5;
-  //   } else {
-  //     speed = 0;
-  //   }
 }
 
 function gameOverScreen() {
   background(135, 206, 235);
   fill(30, 63, 102);
-  rect(50, 110, 300, 270);
+  rect(150, 25, 400, 450);
   fill(135, 206, 235);
-  textSize(36);
-  text("OH NO!!!", 130, 240);
-  textSize(20);
-  text("Press enter to try again", 100, 290);
+  penny(10, 280, 1.5);
+  gameOver(210, 70, 0.7);
+
+  fill(255, 255, 255);
+  textSize(19);
+  text("PRESS ENTER TO TRY AGAIN", 215, 290);
+
   if (keyIsDown(13)) {
     state = "start";
   }
 }
 
-let state = "game";
+let state = "lose";
 
 function draw() {
   if (state === "start") {

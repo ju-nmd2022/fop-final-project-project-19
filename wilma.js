@@ -177,6 +177,167 @@ class PlatformBlack {
   }
 }
 
+class MovingPlatform {
+  constructor(x, y, speed) {
+    this.x = x;
+    this.y = y;
+    this.speed = 2;
+    this.s = 0.4;
+    this.height = 15;
+    this.width = 120;
+  }
+
+  draw() {
+    fill(255, 0, 0);
+    noStroke();
+    fill(155, 118, 83);
+    rect(
+      this.x,
+      this.y + 96 * this.s,
+      this.width * this.s,
+      this.height * 2 * this.s,
+      10 * this.s
+    );
+    fill(255, 0, 0);
+    rect(
+      this.x,
+      this.y + 90 * this.s,
+      this.width * this.s,
+      this.height * this.s
+    );
+    fill(255, 0, 0);
+    rect(
+      this.x,
+      this.y + 90 * this.s,
+      (this.width / 8) * this.s,
+      this.height * this.s
+    );
+    rect(
+      this.x + 30 * this.s,
+      this.y + 90 * this.s,
+      (this.width / 8) * this.s,
+      this.height * this.s
+    );
+    rect(
+      this.x + 60 * this.s,
+      this.y + 90 * this.s,
+      (this.width / 8) * this.s,
+      this.height * this.s
+    );
+    rect(
+      this.x + 90 * this.s,
+      this.y + 90 * this.s,
+      (this.width / 8) * this.s,
+      this.height * this.s
+    );
+  }
+  update() {
+    // Update the platform's position based on its speed
+    this.x += this.speed;
+
+    // Check if the platform has moved off the screen, and reset its position
+    /*  if (this.x + this.width < 0) {
+      this.resetPosition();
+    } */
+    if (this.x < 0 || this.x > width) {
+      this.speed *= -1;
+    }
+  }
+  /*  resetPosition() {
+    // Reset the platform's position when it moves off the screen
+    // You can modify this logic based on your game's requirements
+    this.x = width; // Set the platform's x position to the right edge of the screen
+    this.y = random(height); // Set the platform's y position randomly
+  } */
+}
+
+//text for lose screen
+function gameOver(x, y, s) {
+  //G
+  noStroke();
+  fill(255, 255, 255);
+  rect(x, y, 80 * s, 120 * s);
+
+  fill(30, 63, 102);
+  rect(x, y, 80 * s, 20 * s);
+  rect(x, y + 20 * s, 20 * s, 20 * s);
+  rect(x + 40 * s, y + 40 * s, 40 * s, 20 * s);
+  rect(x + 20 * s, y + 40 * s, 20, 40 * s);
+  rect(x + 20 * s, y + 80 * s, 40 * s, 20 * s);
+  rect(x, y, 80 * s, 20 * s);
+
+  //A
+  fill(255, 255, 255);
+  rect(x + 100 * s, y, 80 * s, 120 * s);
+
+  fill(30, 63, 102);
+  rect(x + 100 * s, y, 80 * s, 20 * s);
+  rect(x + 100 * s, y + 20 * s, 20 * s, 20 * s);
+  rect(x + 120 * s, y + 40 * s, 40 * s, 20 * s);
+  rect(x + 120 * s, y + 80 * s, 40 * s, 40 * s);
+
+  //M
+  fill(255, 255, 255);
+  rect(x + 200 * s, y + 20 * s, 20 * s, 100 * s);
+  rect(x + 220 * s, y + 40 * s, 20 * s, 20 * s);
+  rect(x + 240 * s, y + 60 * s, 20 * s, 20 * s);
+  rect(x + 260 * s, y + 40 * s, 20 * s, 20 * s);
+  rect(x + 280 * s, y + 20 * s, 20 * s, 100 * s);
+
+  //E
+  fill(255, 255, 255);
+  rect(x + 320 * s, y, 80 * s, 120 * s);
+
+  fill(30, 63, 102);
+  rect(x + 320 * s, y, 80 * s, 20 * s);
+  rect(x + 340 * s, y + 40 * s, 60 * s, 20 * s);
+  rect(x + 340 * s, y + 80 * s, 60 * s, 20 * s);
+  rect(x + 380 * s, y + 60 * s, 20 * s, 20 * s);
+
+  //O
+  fill(255, 255, 255);
+  rect(x, y + 140 * s, 80 * s, 120 * s);
+
+  fill(30, 63, 102);
+  rect(x, y + 140 * s, 80 * s, 20 * s);
+  rect(x, y + 240 * s, 20 * s, 20 * s);
+  rect(x + 60 * s, y + 160 * s, 20 * s, 20 * s);
+  rect(x + 20 * s, y + 180 * s, 40 * s, 60 * s);
+
+  //V
+  fill(255, 255, 255);
+  rect(x + 100 * s, y + 160 * s, 20 * s, 60 * s);
+  rect(x + 120 * s, y + 200 * s, 20 * s, 20 * s);
+  rect(x + 120 * s, y + 220 * s, 20 * s, 20 * s);
+  rect(x + 140 * s, y + 220 * s, 20 * s, 20 * s);
+  rect(x + 140 * s, y + 240 * s, 20 * s, 20 * s);
+  rect(x + 160 * s, y + 220 * s, 20 * s, 20 * s);
+  rect(x + 160 * s, y + 200 * s, 20 * s, 20 * s);
+  rect(x + 180 * s, y + 160 * s, 20 * s, 60 * s);
+
+  //E
+  fill(255, 255, 255);
+  rect(x + 220 * s, y + 140 * s, 80 * s, 120 * s);
+
+  fill(30, 63, 102);
+  rect(x + 220 * s, y + 140 * s, 80 * s, 20 * s);
+  rect(x + 240 * s, y + 180 * s, 60 * s, 20 * s);
+  rect(x + 240 * s, y + 220 * s, 60 * s, 20 * s);
+  rect(x + 280 * s, y + 200 * s, 20 * s, 20 * s);
+
+  //R
+  fill(255, 255, 255);
+  rect(x + 320 * s, y + 140 * s, 80 * s, 120 * s);
+
+  fill(30, 63, 102);
+  rect(x + 320 * s, y + 140 * s, 80 * s, 20 * s);
+  rect(x + 380 * s, y + 160 * s, 20 * s, 20 * s);
+  rect(x + 340 * s, y + 180 * s, 40 * s, 20 * s);
+  rect(x + 380 * s, y + 220 * s, 20 * s, 20 * s);
+  rect(x + 340 * s, y + 240 * s, 40 * s, 20 * s);
+  rect(x + 340 * s, y + 220 * s, 20 * s, 20 * s);
+}
+
 function penny(x, y, s) {
   noStroke();
   fill(254, 225, 53);
@@ -354,7 +515,8 @@ class Benny {
 
     this.velocity = 0.3;
     this.gravity = 0.4;
-    this.jumpForce = 15;
+    this.jumpForce = this.velocity + 80;
+    this.extraJumpVelocity = 2;
   }
 
   draw() {
@@ -453,6 +615,7 @@ class Benny {
 
     this.velocity += this.gravity;
     this.y += this.velocity;
+    this.velocityExtra += this.gravity;
 
     if (keyIsDown(37)) {
       this.x -= 8;
@@ -489,10 +652,28 @@ class Benny {
         }
       }
     }
+
+    for (let movingPlatform of movingPlatforms) {
+      if (
+        this.y + this.height >= movingPlatform.y &&
+        this.y + this.height <= movingPlatform.y + movingPlatform.height
+      ) {
+        let minX = movingPlatform.x - this.width;
+        let maxX = movingPlatform.x + movingPlatform.width;
+
+        if (this.x >= minX && this.x <= maxX) {
+          this.jump(jumpForce);
+        }
+      }
+    }
   }
 
   jump() {
     this.velocity -= this.jumpForce;
+  }
+
+  Jump(jumpForce) {
+    this.jumpForce -= this.velocity;
   }
 }
 
@@ -502,12 +683,15 @@ let gap;
 let gapBlack;
 let platforms = [];
 let platformsBlack = [];
+let movingPlatforms = [];
 
 function setup() {
   createCanvas(700, 500);
   platforms = [];
   platformsBlack = [];
+  movingPlatforms = [];
   score = 0;
+  movingPlatform = new MovingPlatform((width, random(height), -2));
 
   // create the platforms
   let platformCount = 6;
@@ -519,11 +703,20 @@ function setup() {
   }
 
   //broken platforms
-  let platformCountBlack = 3;
+  let platformCountBlack = 0;
   gapBlack = height / platformCountBlack;
   for (let i = 1; i < platformCountBlack; i++) {
     platformsBlack.push(
       new PlatformBlack(random(width / 1.5, width / 2), height - i * gapBlack)
+    );
+  }
+
+  //moving platforms
+  let movingPlatformCount = 2;
+  movingGap = height / movingPlatformCount;
+  for (let i = 1; i < movingPlatformCount; i++) {
+    movingPlatforms.push(
+      new MovingPlatform(random(width / 1.5, width / 2), height - i * movingGap)
     );
   }
 }
@@ -567,11 +760,6 @@ function startScreen() {
 }
 
 function gameScreen() {
-  /*   stroke(30, 63, 102);
-  strokeWeight(12);
-  background(137, 206, 235);
-  fill(137, 206, 235);
-  rect(150, 25, 400, 450); */
   background(137, 206, 235);
   fill(30, 63, 102);
   rect(140, 0, 15, height);
@@ -602,6 +790,11 @@ function gameScreen() {
     PlatformBlack.draw();
   }
 
+  for (let movingPlatform of movingPlatforms) {
+    movingPlatform.update();
+    movingPlatform.draw();
+  }
+
   benny.draw();
   benny.update(platforms);
 
@@ -628,49 +821,36 @@ function gameScreen() {
     );
   }
 
-  if (platformsBlack.length > 0 && platformsBlack[0].y > benny.y + 400) {
-    score++;
+  // new moving platforms
+  if (
+    movingPlatforms.length > 0 &&
+    benny.y < movingPlatforms[movingPlatforms.length - 1].y + 600
+  ) {
+    movingPlatforms.push(
+      new MovingPlatform(
+        random(150, 480),
+        movingPlatforms[movingPlatforms.length - 1].y - movingGap
+      )
+    );
   }
 
   if (platforms.length > 0 && platforms[0].y > benny.y + 400) {
     platforms.splice(0, 1);
     score++;
   }
-
-  /*   if (keyIsDown(32)) {
-    benny.jump();
-  } */
-  /* 
-  if (benny.y > 500) {
-    isGameActive = false;
-    state = "lose";
-  } */
-
-  //   if (bennyY > 500) {
-  //     isGameActive = false;
-  //     state = "lose";
-  //   }
-
-  //   if (keyIsDown(38)) {
-  //     velocity = velocity - 0.5;
-  //   } else if (keyIsDown(39)) {
-  //     speed = 5;
-  //   } else if (keyIsDown(37)) {
-  //     speed = -5;
-  //   } else {
-  //     speed = 0;
-  //   }
 }
 
 function gameOverScreen() {
   background(135, 206, 235);
   fill(30, 63, 102);
-  rect(50, 110, 300, 270);
+  rect(150, 25, 400, 450);
   fill(135, 206, 235);
-  textSize(36);
-  text("OH NO!!!", 130, 240);
-  textSize(20);
-  text("Press enter to try again", 100, 290);
+  penny(10, 280, 1.5);
+  gameOver(210, 70, 0.7);
+
+  fill(255, 255, 255);
+  textSize(19);
+  text("PRESS ENTER TO TRY AGAIN", 215, 290);
 
   if (keyIsDown(13)) {
     state = "start";

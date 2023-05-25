@@ -2,82 +2,13 @@ let velocity = 1;
 let acceleration = 0.2;
 let speed = 0;
 let isGameActive = false;
+let score;
+bennyX = 0;
+bennyY = 0;
 
-let bennyY = 100;
-let bennyX = 100;
-let score = 0;
-
-let lose;
-
-// Benny's buddy Penny
-function penny(x, y, s) {
-  noStroke();
-  fill(254, 225, 53);
-  rect(x, y + 200 * s, 110 * s, 70 * s);
-  rect(x + 70 * s, y + 110 * s, 40 * s, 90 * s);
-  rect(x + 85 * s, y + 270 * s, 25 * s, 40 * s);
-  rect(x, y + 270 * s, 25 * s, 40 * s);
-  rect(x + 55 * s, y + 35 * s, 110 * s, 90 * s);
-  rect(x - 15 * s, y + 200 * s, 15 * s, 15 * s);
-  rect(x + 165 * s, y + 70 * s, 15 * s, 15 * s);
-  rect(x - 30 * s, y + 185 * s, 15 * s, 15 * s);
-  rect(x + 40 * s, y + 35 * s, 15 * s, 15 * s);
-
-  fill(204, 119, 34);
-  rect(x + 165 * s, y + 85 * s, 40 * s, 35 * s);
-  rect(x + 165 * s, y + 100 * s, 15 * s, 20 * s);
-
-  fill(0, 0, 0);
-  rect(x - 15 * s, y + 215 * s, 15 * s, 95 * s);
-  rect(x - 15 * s, y + 309 * s, 40 * s, 15 * s);
-  rect(x + 25 * s, y + 254 * s, 15 * s, 70 * s);
-  rect(x + 25 * s, y + 265 * s, 60 * s, 15 * s);
-  rect(x + 70 * s, y + 254 * s, 15 * s, 70 * s);
-  rect(x + 70 * s, y + 309 * s, 40 * s, 15 * s);
-  rect(x + 110 * s, y + 135 * s, 15 * s, 189 * s);
-  rect(x, y + 200 * s, 70 * s, 15 * s);
-  rect(x + 55 * s, y + 65 * s, 15 * s, 135 * s);
-  rect(x + 55 * s, y + 35 * s, 110 * s, 15 * s);
-  rect(x + 165 * s, y + 50 * s, 15 * s, 20 * s);
-  rect(x + 100 * s, y + 120 * s, 80 * s, 15 * s);
-  rect(x + 180 * s, y + 70 * s, 25 * s, 15 * s);
-  rect(x + 180 * s, y + 105 * s, 25 * s, 15 * s);
-  rect(x + 205 * s, y + 85 * s, 15 * s, 20 * s);
-  rect(x - 30 * s, y + 200 * s, 15 * s, 15 * s);
-  rect(x - 15 * s, y + 185 * s, 15 * s, 15 * s);
-  rect(x - 45 * s, y + 185 * s, 15 * s, 15 * s);
-  rect(x - 30 * s, y + 170 * s, 15 * s, 15 * s);
-  rect(x - 60 * s, y + 140 * s, 15 * s, 45 * s);
-  rect(x - 45 * s, y + 125 * s, 30 * s, 15 * s);
-  rect(x - 15 * s, y + 140 * s, 15 * s, 30 * s);
-  rect(x + 40 * s, y + 50 * s, 15 * s, 15 * s);
-  rect(x + 25 * s, y + 35 * s, 15 * s, 15 * s);
-  rect(x + 25 * s, y + 20 * s, 30 * s, 15 * s);
-  rect(x + 100 * s, y + 20 * s, 15 * s, 15 * s);
-  rect(x + 100 * s, y - 10 * s, 15 * s, 15 * s);
-  rect(x + 115 * s, y - 10 * s, 15 * s, 30 * s);
-  rect(x + 85 * s, y - 10 * s, 15 * s, 30 * s);
-  rect(x + 70 * s, y + 105 * s, 15 * s, 15 * s);
-  rect(x + 132 * s, y + 70 * s, 12 * s, 12 * s);
-  rect(x + 120 * s, y + 82 * s, 24 * s, 12 * s);
-
-  fill(204, 119, 34);
-  rect(x - 45 * s, y + 170 * s, 15 * s, 15 * s);
-  rect(x - 45 * s, y + 140 * s, 30 * s, 30 * s);
-  rect(x + 100 * s, y + 5 * s, 15 * s, 15 * s);
-  rect(x, y + 230 * s, 15 * s, 30 * s);
-  rect(x + 25 * s, y + 215 * s, 30 * s, 15 * s);
-  rect(x + 45 * s, y + 240 * s, 15 * s, 15 * s);
-  rect(x + 90 * s, y + 210 * s, 20 * s, 30 * s);
-  rect(x + 10 * s, y + 289 * s, 15 * s, 20 * s);
-  rect(x + 85 * s, y + 265 * s, 15 * s, 30 * s);
-  rect(x + 80 * s, y + 175 * s, 15 * s, 20 * s);
-  rect(x + 70 * s, y + 130 * s, 15 * s, 30 * s);
-  rect(x + 80 * s, y + 50 * s, 20 * s, 15 * s);
-
-  fill(255, 255, 255);
-  rect(x + 120 * s, y + 70 * s, 12 * s, 12 * s);
-}
+let platformX = 0;
+let platformY = 200;
+let platformSpeed = 1;
 
 //text for lose screen
 function gameOver(x, y, s) {
@@ -164,6 +95,134 @@ function gameOver(x, y, s) {
   rect(x + 380 * s, y + 220 * s, 20 * s, 20 * s);
   rect(x + 340 * s, y + 240 * s, 40 * s, 20 * s);
   rect(x + 340 * s, y + 220 * s, 20 * s, 20 * s);
+}
+
+function clouds(x, y, s) {
+  fill(255, 255, 255);
+  noStroke();
+  rect(x, y + 220 * s, 405 * s, 60 * s);
+  rect(x + 105 * s, y + 125 * s, 135 * s, 95 * s);
+  rect(x + 145 * s, y + 110 * s, 60 * s, 15 * s);
+  rect(x + 90 * s, y + 165 * s, 15 * s, 55 * s);
+  rect(x + 75 * s, y + 205 * s, 15 * s, 15 * s);
+  rect(x + 15 * s, y + 205 * s, 45 * s, 15 * s);
+  rect(x + 240 * s, y + 195 * s, 165 * s, 25 * s);
+  rect(x + 240 * s, y + 165 * s, 15 * s, 30 * s);
+  rect(x + 255 * s, y + 180 * s, 15 * s, 15 * s);
+  rect(x + 300 * s, y + 150 * s, 60 * s, 45 * s);
+  rect(x + 285 * s, y + 180 * s, 15 * s, 15 * s);
+  rect(x + 200 * s, y + 160 * s, 15 * s, 35 * s);
+  rect(x + 360 * s, y + 165 * s, 15 * s, 30 * s);
+  rect(x + 375 * s, y + 180 * s, 15 * s, 15 * s);
+  rect(x + 405 * s, y + 240 * s, 15 * s, 40 * s);
+
+  fill(115, 147, 179);
+  rect(x, y + 265 * s, 420 * s, 15 * s);
+  rect(x, y + 220 * s, 15 * s, 45 * s);
+  rect(x + 15 * s, y + 250 * s, 15 * s, 15 * s);
+  rect(x + 405 * s, y + 240 * s, 15 * s, 30 * s);
+  rect(x + 390 * s, y + 220 * s, 15 * s, 45 * s);
+  rect(x + 375 * s, y + 250 * s, 15 * s, 15 * s);
+  rect(x + 90 * s, y + 205 * s, 15 * s, 15 * s);
+  rect(x + 105 * s, y + 220 * s, 15 * s, 45 * s);
+  rect(x + 120 * s, y + 240 * s, 15 * s, 30 * s);
+  rect(x + 255 * s, y + 195 * s, 15 * s, 30 * s);
+  rect(x + 240 * s, y + 225 * s, 15 * s, 15 * s);
+  rect(x + 225 * s, y + 240 * s, 15 * s, 25 * s);
+  rect(x + 210 * s, y + 250 * s, 15 * s, 15 * s);
+
+  fill(0, 0, 0);
+  rect(x, y + 280 * s, 420 * s, 15 * s);
+  rect(x - 15 * s, y + 220 * s, 15 * s, 60 * s);
+  rect(x, y + 205 * s, 15 * s, 15 * s);
+  rect(x + 15 * s, y + 190 * s, 45 * s, 15 * s);
+  rect(x + 60 * s, y + 205 * s, 15 * s, 15 * s);
+  rect(x + 75 * s, y + 165 * s, 15 * s, 40 * s);
+  rect(x + 90 * s, y + 125 * s, 15 * s, 40 * s);
+  rect(x + 105 * s, y + 110 * s, 40 * s, 15 * s);
+  rect(x + 145 * s, y + 95 * s, 55 * s, 15 * s);
+  rect(x + 200 * s, y + 110 * s, 40 * s, 15 * s);
+  rect(x + 240 * s, y + 125 * s, 15 * s, 40 * s);
+  rect(x + 255 * s, y + 165 * s, 15 * s, 15 * s);
+  rect(x + 270 * s, y + 180 * s, 15 * s, 15 * s);
+  rect(x + 285 * s, y + 165 * s, 15 * s, 15 * s);
+  rect(x + 300 * s, y + 150 * s, 15 * s, 15 * s);
+  rect(x + 315 * s, y + 135 * s, 45 * s, 15 * s);
+  rect(x + 360 * s, y + 150 * s, 15 * s, 15 * s);
+  rect(x + 375 * s, y + 165 * s, 15 * s, 15 * s);
+  rect(x + 390 * s, y + 180 * s, 15 * s, 15 * s);
+
+  rect(x + 405 * s, y + 195 * s, 15 * s, 45 * s);
+  rect(x + 420 * s, y + 240 * s, 15 * s, 40 * s);
+}
+
+function penny(x, y, s) {
+  noStroke();
+  fill(254, 225, 53);
+  rect(x, y + 200 * s, 110 * s, 70 * s);
+  rect(x + 70 * s, y + 110 * s, 40 * s, 90 * s);
+  rect(x + 85 * s, y + 270 * s, 25 * s, 40 * s);
+  rect(x, y + 270 * s, 25 * s, 40 * s);
+  rect(x + 55 * s, y + 35 * s, 110 * s, 90 * s);
+  rect(x - 15 * s, y + 200 * s, 15 * s, 15 * s);
+  rect(x + 165 * s, y + 70 * s, 15 * s, 15 * s);
+  rect(x - 30 * s, y + 185 * s, 15 * s, 15 * s);
+  rect(x + 40 * s, y + 35 * s, 15 * s, 15 * s);
+
+  fill(204, 119, 34);
+  rect(x + 165 * s, y + 85 * s, 40 * s, 35 * s);
+  rect(x + 165 * s, y + 100 * s, 15 * s, 20 * s);
+
+  fill(0, 0, 0);
+  rect(x - 15 * s, y + 215 * s, 15 * s, 95 * s);
+  rect(x - 15 * s, y + 309 * s, 40 * s, 15 * s);
+  rect(x + 25 * s, y + 254 * s, 15 * s, 70 * s);
+  rect(x + 25 * s, y + 265 * s, 60 * s, 15 * s);
+  rect(x + 70 * s, y + 254 * s, 15 * s, 70 * s);
+  rect(x + 70 * s, y + 309 * s, 40 * s, 15 * s);
+  rect(x + 110 * s, y + 135 * s, 15 * s, 189 * s);
+  rect(x, y + 200 * s, 70 * s, 15 * s);
+  rect(x + 55 * s, y + 65 * s, 15 * s, 135 * s);
+  rect(x + 55 * s, y + 35 * s, 110 * s, 15 * s);
+  rect(x + 165 * s, y + 50 * s, 15 * s, 20 * s);
+  rect(x + 100 * s, y + 120 * s, 80 * s, 15 * s);
+  rect(x + 180 * s, y + 70 * s, 25 * s, 15 * s);
+  rect(x + 180 * s, y + 105 * s, 25 * s, 15 * s);
+  rect(x + 205 * s, y + 85 * s, 15 * s, 20 * s);
+  rect(x - 30 * s, y + 200 * s, 15 * s, 15 * s);
+  rect(x - 15 * s, y + 185 * s, 15 * s, 15 * s);
+  rect(x - 45 * s, y + 185 * s, 15 * s, 15 * s);
+  rect(x - 30 * s, y + 170 * s, 15 * s, 15 * s);
+  rect(x - 60 * s, y + 140 * s, 15 * s, 45 * s);
+  rect(x - 45 * s, y + 125 * s, 30 * s, 15 * s);
+  rect(x - 15 * s, y + 140 * s, 15 * s, 30 * s);
+  rect(x + 40 * s, y + 50 * s, 15 * s, 15 * s);
+  rect(x + 25 * s, y + 35 * s, 15 * s, 15 * s);
+  rect(x + 25 * s, y + 20 * s, 30 * s, 15 * s);
+  rect(x + 100 * s, y + 20 * s, 15 * s, 15 * s);
+  rect(x + 100 * s, y - 10 * s, 15 * s, 15 * s);
+  rect(x + 115 * s, y - 10 * s, 15 * s, 30 * s);
+  rect(x + 85 * s, y - 10 * s, 15 * s, 30 * s);
+  rect(x + 70 * s, y + 105 * s, 15 * s, 15 * s);
+  rect(x + 132 * s, y + 70 * s, 12 * s, 12 * s);
+  rect(x + 120 * s, y + 82 * s, 24 * s, 12 * s);
+
+  fill(204, 119, 34);
+  rect(x - 45 * s, y + 170 * s, 15 * s, 15 * s);
+  rect(x - 45 * s, y + 140 * s, 30 * s, 30 * s);
+  rect(x + 100 * s, y + 5 * s, 15 * s, 15 * s);
+  rect(x, y + 230 * s, 15 * s, 30 * s);
+  rect(x + 25 * s, y + 215 * s, 30 * s, 15 * s);
+  rect(x + 45 * s, y + 240 * s, 15 * s, 15 * s);
+  rect(x + 90 * s, y + 210 * s, 20 * s, 30 * s);
+  rect(x + 10 * s, y + 289 * s, 15 * s, 20 * s);
+  rect(x + 85 * s, y + 265 * s, 15 * s, 30 * s);
+  rect(x + 80 * s, y + 175 * s, 15 * s, 20 * s);
+  rect(x + 70 * s, y + 130 * s, 15 * s, 30 * s);
+  rect(x + 80 * s, y + 50 * s, 20 * s, 15 * s);
+
+  fill(255, 255, 255);
+  rect(x + 120 * s, y + 70 * s, 12 * s, 12 * s);
 }
 
 function mouse(xMouse, yMouse, sMouse) {
@@ -263,65 +322,6 @@ function mouse(xMouse, yMouse, sMouse) {
   rect(xMouse + 43 * sMouse, yMouse + 100 * sMouse, 20 * sMouse, 20 * sMouse);
 }
 
-function clouds(x, y, s) {
-  fill(255, 255, 255);
-  noStroke();
-  rect(x, y + 220 * s, 405 * s, 60 * s);
-  rect(x + 105 * s, y + 125 * s, 135 * s, 95 * s);
-  rect(x + 145 * s, y + 110 * s, 60 * s, 15 * s);
-  rect(x + 90 * s, y + 165 * s, 15 * s, 55 * s);
-  rect(x + 75 * s, y + 205 * s, 15 * s, 15 * s);
-  rect(x + 15 * s, y + 205 * s, 45 * s, 15 * s);
-  rect(x + 240 * s, y + 195 * s, 165 * s, 25 * s);
-  rect(x + 240 * s, y + 165 * s, 15 * s, 30 * s);
-  rect(x + 255 * s, y + 180 * s, 15 * s, 15 * s);
-  rect(x + 300 * s, y + 150 * s, 60 * s, 45 * s);
-  rect(x + 285 * s, y + 180 * s, 15 * s, 15 * s);
-  rect(x + 200 * s, y + 160 * s, 15 * s, 35 * s);
-  rect(x + 360 * s, y + 165 * s, 15 * s, 30 * s);
-  rect(x + 375 * s, y + 180 * s, 15 * s, 15 * s);
-  rect(x + 405 * s, y + 240 * s, 15 * s, 40 * s);
-
-  fill(115, 147, 179);
-  rect(x, y + 265 * s, 420 * s, 15 * s);
-  rect(x, y + 220 * s, 15 * s, 45 * s);
-  rect(x + 15 * s, y + 250 * s, 15 * s, 15 * s);
-  rect(x + 405 * s, y + 240 * s, 15 * s, 30 * s);
-  rect(x + 390 * s, y + 220 * s, 15 * s, 45 * s);
-  rect(x + 375 * s, y + 250 * s, 15 * s, 15 * s);
-  rect(x + 90 * s, y + 205 * s, 15 * s, 15 * s);
-  rect(x + 105 * s, y + 220 * s, 15 * s, 45 * s);
-  rect(x + 120 * s, y + 240 * s, 15 * s, 30 * s);
-  rect(x + 255 * s, y + 195 * s, 15 * s, 30 * s);
-  rect(x + 240 * s, y + 225 * s, 15 * s, 15 * s);
-  rect(x + 225 * s, y + 240 * s, 15 * s, 25 * s);
-  rect(x + 210 * s, y + 250 * s, 15 * s, 15 * s);
-
-  fill(0, 0, 0);
-  rect(x, y + 280 * s, 420 * s, 15 * s);
-  rect(x - 15 * s, y + 220 * s, 15 * s, 60 * s);
-  rect(x, y + 205 * s, 15 * s, 15 * s);
-  rect(x + 15 * s, y + 190 * s, 45 * s, 15 * s);
-  rect(x + 60 * s, y + 205 * s, 15 * s, 15 * s);
-  rect(x + 75 * s, y + 165 * s, 15 * s, 40 * s);
-  rect(x + 90 * s, y + 125 * s, 15 * s, 40 * s);
-  rect(x + 105 * s, y + 110 * s, 40 * s, 15 * s);
-  rect(x + 145 * s, y + 95 * s, 55 * s, 15 * s);
-  rect(x + 200 * s, y + 110 * s, 40 * s, 15 * s);
-  rect(x + 240 * s, y + 125 * s, 15 * s, 40 * s);
-  rect(x + 255 * s, y + 165 * s, 15 * s, 15 * s);
-  rect(x + 270 * s, y + 180 * s, 15 * s, 15 * s);
-  rect(x + 285 * s, y + 165 * s, 15 * s, 15 * s);
-  rect(x + 300 * s, y + 150 * s, 15 * s, 15 * s);
-  rect(x + 315 * s, y + 135 * s, 45 * s, 15 * s);
-  rect(x + 360 * s, y + 150 * s, 15 * s, 15 * s);
-  rect(x + 375 * s, y + 165 * s, 15 * s, 15 * s);
-  rect(x + 390 * s, y + 180 * s, 15 * s, 15 * s);
-
-  rect(x + 405 * s, y + 195 * s, 15 * s, 45 * s);
-  rect(x + 420 * s, y + 240 * s, 15 * s, 40 * s);
-}
-
 class Platform {
   constructor(x, y) {
     this.x = x;
@@ -351,6 +351,67 @@ class Platform {
       this.height * this.s
     );
     fill(65, 140, 0);
+    rect(
+      this.x,
+      this.y + 90 * this.s,
+      (this.width / 8) * this.s,
+      this.height * this.s
+    );
+    rect(
+      this.x + 30 * this.s,
+      this.y + 90 * this.s,
+      (this.width / 8) * this.s,
+      this.height * this.s
+    );
+    rect(
+      this.x + 60 * this.s,
+      this.y + 90 * this.s,
+      (this.width / 8) * this.s,
+      this.height * this.s
+    );
+    rect(
+      this.x + 90 * this.s,
+      this.y + 90 * this.s,
+      (this.width / 8) * this.s,
+      this.height * this.s
+    );
+  }
+}
+
+class PlatformBlack {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.speed = 2;
+
+    this.s = 0.6;
+    this.height = 15;
+    this.width = 120;
+  }
+
+  update() {
+    this.x += this.speed; // Update platform's x position based on its speed
+  }
+
+  draw() {
+    fill(0, 0, 0);
+    noStroke();
+    fill(155, 118, 83);
+    rect(
+      this.x,
+      this.y + 96 * this.s,
+      this.width * this.s,
+      this.height * 2 * this.s,
+      10 * this.s
+    );
+    fill(0, 0, 0);
+    rect(
+      this.x,
+      this.y + 90 * this.s,
+      this.width * this.s,
+      this.height * this.s
+    );
+    fill(0, 0, 0);
     rect(
       this.x,
       this.y + 90 * this.s,
@@ -482,8 +543,8 @@ class Benny {
   }
   update(platforms) {
     if (this.x + this.width < 0) this.x = 550; // add this screen wrapping
-    if (this.x > 550) this.x = 150;
-    if (this.x < 150) this.x = 550;
+    if (this.x > 520) this.x = 150;
+    if (this.x < 150) this.x = 520;
     if (this.velocity < -9) this.velocity = -9;
 
     this.velocity += this.gravity;
@@ -509,6 +570,21 @@ class Benny {
         }
       }
     }
+
+    for (let platformBlack of platformsBlack) {
+      if (
+        this.y + this.height >= platformBlack.y &&
+        this.y + this.height <= platformBlack.y + platformBlack.height
+      ) {
+        let minX = platformBlack.x - this.width;
+        let maxX = platformBlack.x + platformBlack.width;
+
+        if (this.x >= minX && this.x <= maxX) {
+          this.jump();
+          platformsBlack.splice(0, 1);
+        }
+      }
+    }
   }
 
   jump() {
@@ -516,19 +592,35 @@ class Benny {
   }
 }
 
-let benny = new Benny(160, 160);
+let benny = new Benny(0, 0);
 
 let gap;
+let gapBlack;
+let platforms = [];
+let platformsBlack = [];
 
-let platforms = []; // create the empty platform array
 function setup() {
   createCanvas(700, 500);
+  platforms = [];
+  platformsBlack = [];
+  score = 0;
 
   // create the platforms
-  let platformCount = 7;
+  let platformCount = 6;
   gap = height / platformCount;
   for (let i = 1; i < platformCount; i++) {
-    platforms.push(new Platform(random(150, 480), 470 - i * gap));
+    platforms.push(
+      new Platform(random(width / 1.5, width / 2), height - i * gap)
+    );
+  }
+
+  //broken platforms
+  let platformCountBlack = 3;
+  gapBlack = height / platformCountBlack;
+  for (let i = 1; i < platformCountBlack; i++) {
+    platformsBlack.push(
+      new PlatformBlack(random(width / 1.5, width / 2), height - i * gapBlack)
+    );
   }
 }
 
@@ -562,57 +654,79 @@ function startScreen() {
   mouse(647, 243, 0.06);
 
   if (keyIsDown(32)) {
-    bennyX = 100;
-    velocity = 1;
-    benny.y = 100;
+    benny = new Benny(0, 0);
+    setup();
+    loop();
+    score = 0;
     state = "game";
   }
 }
 
 function gameScreen() {
-  /*   stroke(30, 63, 102);
-  strokeWeight(12);
-  background(137, 206, 235);
-  fill(137, 206, 235);
-  rect(150, 25, 400, 450); */
   background(137, 206, 235);
   fill(30, 63, 102);
   rect(140, 0, 15, height);
   rect(550, 0, 15, height);
-  clouds(555, 73, 0.3);
-  clouds(-1, 393, 0.35);
+  clouds(580, 70, 0.3);
+  clouds(10, 390, 0.3);
   clouds(10, 0, 0.3);
-  clouds(610, 230, 0.27);
-  clouds(10, 0, 0.3);
-  clouds(574, 360, 0.32);
-  clouds(-65, 155, 0.4);
 
-  translate(0, width / 2 - benny.y); // Screen is moving, Benny is following
+  push();
+  fill(255, 255, 255);
+  textSize(30);
+  textAlign(CENTER);
+  text(score, 350, 60);
+  pop();
+
+  if (benny.velocity > 20) {
+    isGameActive = false;
+    state = "lose";
+  } else {
+    translate(0, width / 2 - benny.y); // Benny följer med upp
+  }
 
   for (let platform of platforms) {
     platform.draw();
   }
 
+  for (let PlatformBlack of platformsBlack) {
+    PlatformBlack.update();
+    PlatformBlack.draw();
+  }
+
   benny.draw();
   benny.update(platforms);
 
-  if (benny.y < platforms[platforms.length - 1].y + 200) {
+  //new regular platforms
+  if (
+    platforms.length > 0 &&
+    benny.y < platforms[platforms.length - 1].y + 600
+  ) {
     platforms.push(
       new Platform(random(150, 480), platforms[platforms.length - 1].y - gap)
     );
   }
-  if (platforms[0].y > benny.y + 600) {
-    platforms.splice(0, 1);
+
+  //new black platforms
+  if (
+    platformsBlack.length > 0 &&
+    benny.y < platformsBlack[platformsBlack.length - 1].y + 600
+  ) {
+    platformsBlack.push(
+      new PlatformBlack(
+        random(150, 480),
+        platformsBlack[platformsBlack.length - 1].y - gapBlack
+      )
+    );
+  }
+
+  if (platformsBlack.length > 0 && platformsBlack[0].y > benny.y + 400) {
     score++;
   }
 
-  if (keyIsDown(32)) {
-    benny.jump();
-  }
-
-  if (benny.y > 500) {
-    isGameActive = false;
-    state = "lose";
+  if (platforms.length > 0 && platforms[0].y > benny.y + 400) {
+    platforms.splice(0, 1);
+    score++;
   }
 }
 
@@ -625,15 +739,16 @@ function gameOverScreen() {
   gameOver(210, 70, 0.7);
 
   fill(255, 255, 255);
-  textSize(19);
-  text("PRESS ENTER TO TRY AGAIN", 215, 290);
-
+  textSize(20);
+  text(`YOU SCORED ${score}`, 270, 290);
+  textSize(18);
+  text("PRESS ENTER TO TRY AGAIN", 220, 320);
   if (keyIsDown(13)) {
     state = "start";
   }
 }
 
-let state = "lose";
+let state = "game";
 
 function draw() {
   if (state === "start") {

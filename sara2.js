@@ -9,6 +9,7 @@ bennyY = 0;
 let platformX = 0;
 let platformY = 200;
 let platformSpeed = 1;
+let extraJumpVelocity = -10;
 
 //text for lose screen
 function gameOver(x, y, s) {
@@ -383,7 +384,6 @@ class PlatformBlack {
     this.x = x;
     this.y = y;
     this.speed = 2;
-
     this.s = 0.6;
     this.height = 15;
     this.width = 120;
@@ -391,6 +391,9 @@ class PlatformBlack {
 
   update() {
     this.x += this.speed; // Update platform's x position based on its speed
+    if (this.x < 0 || this.x > width) {
+      this.speed *= -1;
+    }
   }
 
   draw() {
@@ -718,10 +721,6 @@ function gameScreen() {
         platformsBlack[platformsBlack.length - 1].y - gapBlack
       )
     );
-  }
-
-  if (platformsBlack.length > 0 && platformsBlack[0].y > benny.y + 400) {
-    score++;
   }
 
   if (platforms.length > 0 && platforms[0].y > benny.y + 400) {

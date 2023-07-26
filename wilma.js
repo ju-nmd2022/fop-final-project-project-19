@@ -239,7 +239,7 @@ class MovingPlatform {
     /*  if (this.x + this.width < 0) {
       this.resetPosition();
     } */
-    if (this.x < 0 || this.x > width) {
+    if (this.x < 150 || this.x > 500) {
       this.speed *= -1;
     }
   }
@@ -515,8 +515,8 @@ class Benny {
 
     this.velocity = 0.3;
     this.gravity = 0.4;
-    this.jumpForce = this.velocity + 80;
-    this.extraJumpVelocity = 2;
+    this.jumpForce = 15;
+    this.extraJumpForce = 180;
   }
 
   draw() {
@@ -615,7 +615,6 @@ class Benny {
 
     this.velocity += this.gravity;
     this.y += this.velocity;
-    this.velocityExtra += this.gravity;
 
     if (keyIsDown(37)) {
       this.x -= 8;
@@ -662,7 +661,7 @@ class Benny {
         let maxX = movingPlatform.x + movingPlatform.width;
 
         if (this.x >= minX && this.x <= maxX) {
-          this.jump(jumpForce);
+          this.jump(5, 5);
         }
       }
     }
@@ -672,8 +671,8 @@ class Benny {
     this.velocity -= this.jumpForce;
   }
 
-  Jump(jumpForce) {
-    this.jumpForce -= this.velocity;
+  extraJump() {
+    this.velocity -= this.jumpForce * 2;
   }
 }
 
@@ -681,6 +680,7 @@ let benny = new Benny(0, 0);
 
 let gap;
 let gapBlack;
+let movingGap;
 let platforms = [];
 let platformsBlack = [];
 let movingPlatforms = [];
@@ -703,7 +703,7 @@ function setup() {
   }
 
   //broken platforms
-  let platformCountBlack = 0;
+  let platformCountBlack = 2;
   gapBlack = height / platformCountBlack;
   for (let i = 1; i < platformCountBlack; i++) {
     platformsBlack.push(

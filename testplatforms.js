@@ -665,6 +665,9 @@ function startScreen() {
   }
 }
 
+// Add a variable to track if regular platforms should be shown or not
+let showRegularPlatforms = true;
+
 function gameScreen() {
   background(137, 206, 235);
   fill(30, 63, 102);
@@ -688,48 +691,55 @@ function gameScreen() {
     translate(0, width / 2 - benny.y); // Benny följer med upp
   }
 
-  for (let platform of platforms) {
-    platform.draw();
-  }
-
-  for (let PlatformBlack of platformsBlack) {
-    PlatformBlack.update();
-    PlatformBlack.draw();
+  // Draw regular platforms or black platforms depending on the score
+  if (showRegularPlatforms) {
+    for (let platform of platforms) {
+      platform.draw();
+    }
+  } else {
+    for (let PlatformBlack of platformsBlack) {
+      PlatformBlack.update();
+      PlatformBlack.draw();
+    }
   }
 
   benny.draw();
   benny.update(platforms);
 
-  //new regular platforms
-  if (
-    platforms.length > 0 &&
-    benny.y < platforms[platforms.length - 1].y + 600
-  ) {
-    platforms.push(
-      new Platform(random(150, 480), platforms[platforms.length - 1].y - gap)
-    );
+  // New regular platforms
+  if (showRegularPlatforms) {
+    if (
+      platforms.length > 0 &&
+      benny.y < platforms[platforms.length - 1].y + 600
+    ) {
+      platforms.push(
+        new Platform(random(150, 480), platforms[platforms.length - 1].y - gap)
+      );
+    }
   }
 
-  //new black platforms
-  if (
-    platformsBlack.length > 0 &&
-    benny.y < platformsBlack[platformsBlack.length - 1].y + 600
-  ) {
-    platformsBlack.push(
-      new PlatformBlack(
-        random(150, 480),
-        platformsBlack[platformsBlack.length - 1].y - gapBlack
-      )
-    );
+  // New black platforms
+  if (!showRegularPlatforms) {
+    if (
+      platformsBlack.length > 0 &&
+      benny.y < platformsBlack[platformsBlack.length - 1].y + 600
+    ) {
+      platformsBlack.push(
+        new PlatformBlack(
+          random(150, 480),
+          platformsBlack[platformsBlack.length - 1].y - gapBlack
+        )
+      );
+    }
   }
 
   if (platforms.length > 0 && platforms[0].y > benny.y + 400) {
     platforms.splice(0, 1);
     score++;
-  }
-
-  if (score === 3) {
-    platforms = [];
+    // Check if the score is 10, then switch to black platforms
+    if (score === ) {
+      showRegularPlatforms = false;
+    }
   }
 }
 

@@ -685,7 +685,7 @@ function gameScreen() {
     isGameActive = false;
     state = "lose";
   } else {
-    translate(0, width / 2 - benny.y); // Benny följer med upp
+    translate(0, width / 3 - benny.y); // Benny följer med upp
   }
 
   for (let platform of platforms) {
@@ -693,7 +693,6 @@ function gameScreen() {
   }
 
   for (let PlatformBlack of platformsBlack) {
-    PlatformBlack.update();
     PlatformBlack.draw();
   }
 
@@ -728,7 +727,7 @@ function gameScreen() {
     score++;
   }
 
-  if (score === 3) {
+  if (score === 10) {
     platforms = [];
   }
 }

@@ -6,10 +6,65 @@ let score;
 bennyX = 0;
 bennyY = 0;
 
-let platformX = 0;
-let platformY = 200;
-let platformSpeed = 1;
-let extraJumpVelocity = -10;
+// drawings
+function clouds(x, y, s) {
+  fill(255, 255, 255);
+  noStroke();
+  rect(x, y + 220 * s, 405 * s, 60 * s);
+  rect(x + 105 * s, y + 125 * s, 135 * s, 95 * s);
+  rect(x + 145 * s, y + 110 * s, 60 * s, 15 * s);
+  rect(x + 90 * s, y + 165 * s, 15 * s, 55 * s);
+  rect(x + 75 * s, y + 205 * s, 15 * s, 15 * s);
+  rect(x + 15 * s, y + 205 * s, 45 * s, 15 * s);
+  rect(x + 240 * s, y + 195 * s, 165 * s, 25 * s);
+  rect(x + 240 * s, y + 165 * s, 15 * s, 30 * s);
+  rect(x + 255 * s, y + 180 * s, 15 * s, 15 * s);
+  rect(x + 300 * s, y + 150 * s, 60 * s, 45 * s);
+  rect(x + 285 * s, y + 180 * s, 15 * s, 15 * s);
+  rect(x + 200 * s, y + 160 * s, 15 * s, 35 * s);
+  rect(x + 360 * s, y + 165 * s, 15 * s, 30 * s);
+  rect(x + 375 * s, y + 180 * s, 15 * s, 15 * s);
+  rect(x + 405 * s, y + 240 * s, 15 * s, 40 * s);
+
+  fill(115, 147, 179);
+  rect(x, y + 265 * s, 420 * s, 15 * s);
+  rect(x, y + 220 * s, 15 * s, 45 * s);
+  rect(x + 15 * s, y + 250 * s, 15 * s, 15 * s);
+  rect(x + 405 * s, y + 240 * s, 15 * s, 30 * s);
+  rect(x + 390 * s, y + 220 * s, 15 * s, 45 * s);
+  rect(x + 375 * s, y + 250 * s, 15 * s, 15 * s);
+  rect(x + 90 * s, y + 205 * s, 15 * s, 15 * s);
+  rect(x + 105 * s, y + 220 * s, 15 * s, 45 * s);
+  rect(x + 120 * s, y + 240 * s, 15 * s, 30 * s);
+  rect(x + 255 * s, y + 195 * s, 15 * s, 30 * s);
+  rect(x + 240 * s, y + 225 * s, 15 * s, 15 * s);
+  rect(x + 225 * s, y + 240 * s, 15 * s, 25 * s);
+  rect(x + 210 * s, y + 250 * s, 15 * s, 15 * s);
+
+  fill(0, 0, 0);
+  rect(x, y + 280 * s, 420 * s, 15 * s);
+  rect(x - 15 * s, y + 220 * s, 15 * s, 60 * s);
+  rect(x, y + 205 * s, 15 * s, 15 * s);
+  rect(x + 15 * s, y + 190 * s, 45 * s, 15 * s);
+  rect(x + 60 * s, y + 205 * s, 15 * s, 15 * s);
+  rect(x + 75 * s, y + 165 * s, 15 * s, 40 * s);
+  rect(x + 90 * s, y + 125 * s, 15 * s, 40 * s);
+  rect(x + 105 * s, y + 110 * s, 40 * s, 15 * s);
+  rect(x + 145 * s, y + 95 * s, 55 * s, 15 * s);
+  rect(x + 200 * s, y + 110 * s, 40 * s, 15 * s);
+  rect(x + 240 * s, y + 125 * s, 15 * s, 40 * s);
+  rect(x + 255 * s, y + 165 * s, 15 * s, 15 * s);
+  rect(x + 270 * s, y + 180 * s, 15 * s, 15 * s);
+  rect(x + 285 * s, y + 165 * s, 15 * s, 15 * s);
+  rect(x + 300 * s, y + 150 * s, 15 * s, 15 * s);
+  rect(x + 315 * s, y + 135 * s, 45 * s, 15 * s);
+  rect(x + 360 * s, y + 150 * s, 15 * s, 15 * s);
+  rect(x + 375 * s, y + 165 * s, 15 * s, 15 * s);
+  rect(x + 390 * s, y + 180 * s, 15 * s, 15 * s);
+
+  rect(x + 405 * s, y + 195 * s, 15 * s, 45 * s);
+  rect(x + 420 * s, y + 240 * s, 15 * s, 40 * s);
+}
 
 //text for lose screen
 function gameOver(x, y, s) {
@@ -96,65 +151,6 @@ function gameOver(x, y, s) {
   rect(x + 380 * s, y + 220 * s, 20 * s, 20 * s);
   rect(x + 340 * s, y + 240 * s, 40 * s, 20 * s);
   rect(x + 340 * s, y + 220 * s, 20 * s, 20 * s);
-}
-
-function clouds(x, y, s) {
-  fill(255, 255, 255);
-  noStroke();
-  rect(x, y + 220 * s, 405 * s, 60 * s);
-  rect(x + 105 * s, y + 125 * s, 135 * s, 95 * s);
-  rect(x + 145 * s, y + 110 * s, 60 * s, 15 * s);
-  rect(x + 90 * s, y + 165 * s, 15 * s, 55 * s);
-  rect(x + 75 * s, y + 205 * s, 15 * s, 15 * s);
-  rect(x + 15 * s, y + 205 * s, 45 * s, 15 * s);
-  rect(x + 240 * s, y + 195 * s, 165 * s, 25 * s);
-  rect(x + 240 * s, y + 165 * s, 15 * s, 30 * s);
-  rect(x + 255 * s, y + 180 * s, 15 * s, 15 * s);
-  rect(x + 300 * s, y + 150 * s, 60 * s, 45 * s);
-  rect(x + 285 * s, y + 180 * s, 15 * s, 15 * s);
-  rect(x + 200 * s, y + 160 * s, 15 * s, 35 * s);
-  rect(x + 360 * s, y + 165 * s, 15 * s, 30 * s);
-  rect(x + 375 * s, y + 180 * s, 15 * s, 15 * s);
-  rect(x + 405 * s, y + 240 * s, 15 * s, 40 * s);
-
-  fill(115, 147, 179);
-  rect(x, y + 265 * s, 420 * s, 15 * s);
-  rect(x, y + 220 * s, 15 * s, 45 * s);
-  rect(x + 15 * s, y + 250 * s, 15 * s, 15 * s);
-  rect(x + 405 * s, y + 240 * s, 15 * s, 30 * s);
-  rect(x + 390 * s, y + 220 * s, 15 * s, 45 * s);
-  rect(x + 375 * s, y + 250 * s, 15 * s, 15 * s);
-  rect(x + 90 * s, y + 205 * s, 15 * s, 15 * s);
-  rect(x + 105 * s, y + 220 * s, 15 * s, 45 * s);
-  rect(x + 120 * s, y + 240 * s, 15 * s, 30 * s);
-  rect(x + 255 * s, y + 195 * s, 15 * s, 30 * s);
-  rect(x + 240 * s, y + 225 * s, 15 * s, 15 * s);
-  rect(x + 225 * s, y + 240 * s, 15 * s, 25 * s);
-  rect(x + 210 * s, y + 250 * s, 15 * s, 15 * s);
-
-  fill(0, 0, 0);
-  rect(x, y + 280 * s, 420 * s, 15 * s);
-  rect(x - 15 * s, y + 220 * s, 15 * s, 60 * s);
-  rect(x, y + 205 * s, 15 * s, 15 * s);
-  rect(x + 15 * s, y + 190 * s, 45 * s, 15 * s);
-  rect(x + 60 * s, y + 205 * s, 15 * s, 15 * s);
-  rect(x + 75 * s, y + 165 * s, 15 * s, 40 * s);
-  rect(x + 90 * s, y + 125 * s, 15 * s, 40 * s);
-  rect(x + 105 * s, y + 110 * s, 40 * s, 15 * s);
-  rect(x + 145 * s, y + 95 * s, 55 * s, 15 * s);
-  rect(x + 200 * s, y + 110 * s, 40 * s, 15 * s);
-  rect(x + 240 * s, y + 125 * s, 15 * s, 40 * s);
-  rect(x + 255 * s, y + 165 * s, 15 * s, 15 * s);
-  rect(x + 270 * s, y + 180 * s, 15 * s, 15 * s);
-  rect(x + 285 * s, y + 165 * s, 15 * s, 15 * s);
-  rect(x + 300 * s, y + 150 * s, 15 * s, 15 * s);
-  rect(x + 315 * s, y + 135 * s, 45 * s, 15 * s);
-  rect(x + 360 * s, y + 150 * s, 15 * s, 15 * s);
-  rect(x + 375 * s, y + 165 * s, 15 * s, 15 * s);
-  rect(x + 390 * s, y + 180 * s, 15 * s, 15 * s);
-
-  rect(x + 405 * s, y + 195 * s, 15 * s, 45 * s);
-  rect(x + 420 * s, y + 240 * s, 15 * s, 40 * s);
 }
 
 function penny(x, y, s) {
@@ -328,9 +324,9 @@ class Platform {
     this.x = x;
     this.y = y;
 
-    this.s = 0.6;
+    this.s = 0.4;
     this.height = 15;
-    this.width = 120;
+    this.width = 150;
   }
 
   draw() {
@@ -379,25 +375,18 @@ class Platform {
   }
 }
 
-class PlatformBlack {
-  constructor(x, y) {
+class MovingPlatform {
+  constructor(x, y, speed) {
     this.x = x;
     this.y = y;
     this.speed = 2;
-    this.s = 0.6;
+    this.s = 0.4;
     this.height = 15;
     this.width = 120;
   }
 
-  update() {
-    this.x += this.speed; // Update platform's x position based on its speed
-    if (this.x < 0 || this.x > width) {
-      this.speed *= -1;
-    }
-  }
-
   draw() {
-    fill(0, 0, 0);
+    fill(255, 0, 0);
     noStroke();
     fill(155, 118, 83);
     rect(
@@ -407,14 +396,14 @@ class PlatformBlack {
       this.height * 2 * this.s,
       10 * this.s
     );
-    fill(0, 0, 0);
+    fill(255, 0, 0);
     rect(
       this.x,
       this.y + 90 * this.s,
       this.width * this.s,
       this.height * this.s
     );
-    fill(0, 0, 0);
+    fill(255, 0, 0);
     rect(
       this.x,
       this.y + 90 * this.s,
@@ -440,6 +429,24 @@ class PlatformBlack {
       this.height * this.s
     );
   }
+  update() {
+    // Update the platform's position based on its speed
+    this.x += this.speed;
+
+    // Check if the platform has moved off the screen, and reset its position
+    /*  if (this.x + this.width < 0) {
+      this.resetPosition();
+    } */
+    if (this.x < 150 || this.x > 500) {
+      this.speed *= -1;
+    }
+  }
+  /*  resetPosition() {
+    // Reset the platform's position when it moves off the screen
+    // You can modify this logic based on your game's requirements
+    this.x = width; // Set the platform's x position to the right edge of the screen
+    this.y = random(height); // Set the platform's y position randomly
+  } */
 }
 
 class Benny {
@@ -454,6 +461,7 @@ class Benny {
     this.velocity = 0.3;
     this.gravity = 0.4;
     this.jumpForce = 15;
+    this.extraJumpForce = 180;
   }
 
   draw() {
@@ -574,17 +582,16 @@ class Benny {
       }
     }
 
-    for (let platformBlack of platformsBlack) {
+    for (let movingPlatform of movingPlatforms) {
       if (
-        this.y + this.height >= platformBlack.y &&
-        this.y + this.height <= platformBlack.y + platformBlack.height
+        this.y + this.height >= movingPlatform.y &&
+        this.y + this.height <= movingPlatform.y + movingPlatform.height
       ) {
-        let minX = platformBlack.x - this.width;
-        let maxX = platformBlack.x + platformBlack.width;
+        let minX = movingPlatform.x - this.width;
+        let maxX = movingPlatform.x + movingPlatform.width;
 
         if (this.x >= minX && this.x <= maxX) {
-          this.jump();
-          platformsBlack.splice(0, 1);
+          this.jump(5, 5);
         }
       }
     }
@@ -593,23 +600,28 @@ class Benny {
   jump() {
     this.velocity -= this.jumpForce;
   }
+
+  extraJump() {
+    this.velocity -= this.jumpForce * 2;
+  }
 }
 
 let benny = new Benny(0, 0);
 
 let gap;
-let gapBlack;
+let movingGap;
 let platforms = [];
-let platformsBlack = [];
+let movingPlatforms = [];
 
 function setup() {
   createCanvas(700, 500);
   platforms = [];
-  platformsBlack = [];
+  movingPlatforms = [];
   score = 0;
+  movingPlatform = new MovingPlatform((width, random(height), -2));
 
   // create the platforms
-  let platformCount = 6;
+  let platformCount = 5;
   gap = height / platformCount;
   for (let i = 1; i < platformCount; i++) {
     platforms.push(
@@ -617,12 +629,12 @@ function setup() {
     );
   }
 
-  //broken platforms
-  let platformCountBlack = 6;
-  gapBlack = height / platformCountBlack;
-  for (let i = 1; i < platformCountBlack; i++) {
-    platformsBlack.push(
-      new PlatformBlack(random(width / 1.5, width / 2), height - i * gapBlack)
+  //moving platforms
+  let movingPlatformCount = 2;
+  movingGap = height / movingPlatformCount;
+  for (let i = 1; i < movingPlatformCount; i++) {
+    movingPlatforms.push(
+      new MovingPlatform(random(width / 1.5, width / 2), height - i * movingGap)
     );
   }
 }
@@ -685,15 +697,16 @@ function gameScreen() {
     isGameActive = false;
     state = "lose";
   } else {
-    translate(0, width / 3 - benny.y); // Benny följer med upp
+    translate(0, width / 3 - benny.y);
   }
 
   for (let platform of platforms) {
     platform.draw();
   }
 
-  for (let PlatformBlack of platformsBlack) {
-    PlatformBlack.draw();
+  for (let movingPlatform of movingPlatforms) {
+    movingPlatform.update();
+    movingPlatform.draw();
   }
 
   benny.draw();
@@ -709,26 +722,22 @@ function gameScreen() {
     );
   }
 
-  //new black platforms
+  // new moving platforms
   if (
-    platformsBlack.length > 0 &&
-    benny.y < platformsBlack[platformsBlack.length - 1].y + 600
+    movingPlatforms.length > 0 &&
+    benny.y < movingPlatforms[movingPlatforms.length - 1].y + 600
   ) {
-    platformsBlack.push(
-      new PlatformBlack(
+    movingPlatforms.push(
+      new MovingPlatform(
         random(150, 480),
-        platformsBlack[platformsBlack.length - 1].y - gapBlack
+        movingPlatforms[movingPlatforms.length - 1].y - movingGap
       )
     );
   }
 
-  if (platforms.length > 0 && platforms[0].y > benny.y + 400) {
+  if (platforms.length > 0 && platforms[0].y > benny.y + 600) {
     platforms.splice(0, 1);
     score++;
-  }
-
-  if (score === 10) {
-    platforms = [];
   }
 }
 
@@ -741,15 +750,13 @@ function gameOverScreen() {
   gameOver(210, 70, 0.7);
 
   fill(255, 255, 255);
-  textSize(20);
-  text(`YOU SCORED ${score}`, 270, 290);
-  textSize(18);
-  text("PRESS ENTER TO TRY AGAIN", 220, 320);
+  textSize(19);
+  text("PRESS ENTER TO TRY AGAIN", 215, 290);
+
   if (keyIsDown(13)) {
     state = "start";
   }
 }
-
 let state = "game";
 
 function draw() {

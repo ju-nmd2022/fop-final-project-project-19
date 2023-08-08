@@ -2,7 +2,8 @@ let velocity = 1;
 let acceleration = 0.2;
 let speed = 0;
 let isGameActive = false;
-let score;
+let score = 0;
+let highscore = 0;
 bennyX = 0;
 bennyY = 0;
 
@@ -514,9 +515,8 @@ class Benny {
     this.height = 60;
 
     this.velocity = 0.3;
-    this.gravity = 0.4;
-    this.jumpForce = 15;
-    this.extraJumpForce = 180;
+    this.gravity = 0.3;
+    this.jumpForce = 20;
   }
 
   draw() {
@@ -661,7 +661,7 @@ class Benny {
         let maxX = movingPlatform.x + movingPlatform.width;
 
         if (this.x >= minX && this.x <= maxX) {
-          this.jump(5, 5);
+          this.jump();
         }
       }
     }
@@ -671,9 +671,11 @@ class Benny {
     this.velocity -= this.jumpForce;
   }
 
-  extraJump() {
-    this.velocity -= this.jumpForce * 2;
-  }
+  /*   extraJump() {
+    this.velocity = 0.2;
+    this.gravity = 0.4;
+    this.jumpForce = 100;
+  } */
 }
 
 let benny = new Benny(0, 0);
@@ -687,14 +689,16 @@ let movingPlatforms = [];
 
 function setup() {
   createCanvas(700, 500);
+  let highscore = localStorage.getItem("doodleJumpHighscore") || 0;
   platforms = [];
   platformsBlack = [];
   movingPlatforms = [];
   score = 0;
+  highscore = 0;
   movingPlatform = new MovingPlatform((width, random(height), -2));
 
   // create the platforms
-  let platformCount = 6;
+  let platformCount = 2;
   gap = height / platformCount;
   for (let i = 1; i < platformCount; i++) {
     platforms.push(
@@ -712,7 +716,7 @@ function setup() {
   }
 
   //moving platforms
-  let movingPlatformCount = 2;
+  let movingPlatformCount = 6;
   movingGap = height / movingPlatformCount;
   for (let i = 1; i < movingPlatformCount; i++) {
     movingPlatforms.push(
@@ -773,6 +777,9 @@ function gameScreen() {
   textSize(30);
   textAlign(CENTER);
   text(score, 350, 60);
+  textSize(20);
+  fill(255);
+  text("Highscore: " + highscore, 350, 100);
   pop();
 
   if (benny.velocity > 20) {
@@ -837,6 +844,16 @@ function gameScreen() {
   if (platforms.length > 0 && platforms[0].y > benny.y + 400) {
     platforms.splice(0, 1);
     score++;
+  }
+
+  if (movingPlatforms.length > 0 && movingPlatforms[0].y > benny.y + 400) {
+    movingPlatforms.splice(0, 1);
+    score++;
+  }
+
+  if (score > highscore) {
+    highscore = score;
+    localStorage.setItem("doodleJumpHighscore", highscore);
   }
 }
 

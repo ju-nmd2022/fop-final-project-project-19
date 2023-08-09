@@ -71,9 +71,9 @@ class Platform {
     this.x = x;
     this.y = y;
 
-    this.s = 0.6;
+    this.s = 0.4;
     this.height = 15;
-    this.width = 120;
+    this.width = 150;
   }
 
   draw() {
@@ -119,6 +119,12 @@ class Platform {
       (this.width / 8) * this.s,
       this.height * this.s
     );
+    rect(
+      this.x + 120 * this.s,
+      this.y + 90 * this.s,
+      (this.width / 8) * this.s,
+      this.height * this.s
+    );
   }
 }
 
@@ -127,7 +133,7 @@ class PlatformBlack {
     this.x = x;
     this.y = y;
 
-    this.s = 0.6;
+    this.s = 0.4;
     this.height = 15;
     this.width = 120;
   }
@@ -637,21 +643,6 @@ class Benny {
       }
     }
 
-    for (let platformBlack of platformsBlack) {
-      if (
-        this.y + this.height >= platformBlack.y &&
-        this.y + this.height <= platformBlack.y + platformBlack.height
-      ) {
-        let minX = platformBlack.x - this.width;
-        let maxX = platformBlack.x + platformBlack.width;
-
-        if (this.x >= minX && this.x <= maxX) {
-          this.jump();
-          platformsBlack.splice(0, 1);
-        }
-      }
-    }
-
     for (let movingPlatform of movingPlatforms) {
       if (
         this.y + this.height >= movingPlatform.y &&
@@ -670,12 +661,33 @@ class Benny {
   jump() {
     this.velocity -= this.jumpForce;
   }
+}
 
-  /*   extraJump() {
-    this.velocity = 0.2;
-    this.gravity = 0.4;
-    this.jumpForce = 100;
-  } */
+class Ball {
+  constructor(x, y, radius, speed) {
+    this.x = x;
+    this.y = y;
+    this.radius = radius;
+    this.speed = speed;
+  }
+
+  draw() {
+    fill(255, 0, 0);
+    ellipse(this.x, this.y, this.radius * 2);
+  }
+
+  update() {
+    this.y += this.speed;
+    if (this.y - this.radius > height) {
+      this.y = -this.radius;
+      this.x = random(150, 480);
+    }
+  }
+
+  checkCollision(benny) {
+    const distance = dist(this.x, this.y, benny.x, benny.y + benny.height);
+    return distance < this.radius + benny.width / 2;
+  }
 }
 
 let benny = new Benny(0, 0);
@@ -684,18 +696,16 @@ let gap;
 let gapBlack;
 let movingGap;
 let platforms = [];
-let platformsBlack = [];
 let movingPlatforms = [];
 let platformCount = 6;
-let platformCountBlack = 0;
 let movingPlatformCount = 3;
-let platformCountsUpdated = false;
+let balls = [];
+const ballSpawnRate = 100;
 
 function setup() {
   createCanvas(700, 500);
-  let highscore = localStorage.getItem("doodleJumpHighscore") || 0;
+  let highscore = localStorage.getItem("bennyHighscore") || 0;
   platforms = [];
-  platformsBlack = [];
   movingPlatforms = [];
   score = 0;
   highscore = 0;
@@ -711,15 +721,6 @@ function createPlatforms() {
   for (let i = 1; i < platformCount; i++) {
     platforms.push(
       new Platform(random(width / 1.5, width / 2), height - i * gap)
-    );
-  }
-
-  //broken platforms
-
-  gapBlack = height / platformCountBlack;
-  for (let i = 1; i < platformCountBlack; i++) {
-    platformsBlack.push(
-      new PlatformBlack(random(width / 1.5, width / 2), height - i * gapBlack)
     );
   }
 
@@ -801,10 +802,6 @@ function gameScreen() {
     platform.draw();
   }
 
-  for (let PlatformBlack of platformsBlack) {
-    PlatformBlack.draw();
-  }
-
   for (let movingPlatform of movingPlatforms) {
     movingPlatform.update();
     movingPlatform.draw();
@@ -823,19 +820,6 @@ function gameScreen() {
     );
   }
 
-  //new black platforms
-  if (
-    platformsBlack.length > 0 &&
-    benny.y < platformsBlack[platformsBlack.length - 1].y + 600
-  ) {
-    platformsBlack.push(
-      new PlatformBlack(
-        random(150, 480),
-        platformsBlack[platformsBlack.length - 1].y - gapBlack
-      )
-    );
-  }
-
   // new moving platforms
   if (
     movingPlatforms.length > 0 &&
@@ -849,18 +833,26 @@ function gameScreen() {
     );
   }
 
-  if (score > 40 && !platformCountsUpdated) {
-    platformCount = 2;
-    platformCountBlack = 6;
-    createPlatforms();
-    platformCountsUpdated = true;
-  }
+  // Draw and update balls
+  for (let i = balls.length - 1; i >= 0; i--) {
+    const ball = balls[i];
+    ball.draw();
+    ball.update();
 
-  if (score > 80 && !platformCountsUpdated) {
-    platformCount = 1;
-    platformCountBlack = 4;
-    createPlatforms();
-    platformCountsUpdated = true;
+    if (ball.y > height) {
+      balls.splice(i, 1);
+    } else if (ball.checkCollision(benny)) {
+      isGameActive = false;
+      state = "lose";
+    }
+  }
+  // Create new balls periodically
+  if (frameCount % ballSpawnRate === 0) {
+    const ballX = random(150, 480);
+    const ballY = random(-10000, -5000);
+    const ballRadius = 15;
+    const ballSpeed = random(2, 5);
+    balls.push(new Ball(ballX, ballY, ballRadius, ballSpeed));
   }
 
   if (platforms.length > 0 && platforms[0].y > benny.y + 400) {
@@ -875,7 +867,7 @@ function gameScreen() {
 
   if (score > highscore) {
     highscore = score;
-    localStorage.setItem("doodleJumpHighscore", highscore);
+    localStorage.setItem("bennyHighscore", highscore);
   }
 }
 
@@ -884,20 +876,19 @@ function gameOverScreen() {
   fill(30, 63, 102);
   rect(150, 25, 400, 450);
   fill(135, 206, 235);
-  penny(10, 280, 1.5);
+  penny(-1, 278, 1.5);
   gameOver(210, 70, 0.7);
 
   fill(255, 255, 255);
   textSize(19);
   text("PRESS ENTER TO TRY AGAIN", 215, 290);
+  text(`You scored: ${score}`, 293, 330);
+  text("Highscore: " + highscore, 295, 360);
+  textSize(25);
 
   if (keyIsDown(13)) {
     state = "start";
     score = 0;
-    platformCount = 6;
-    platformCountBlack = 0;
-    movingPlatformCount = 3;
-    platformCountsUpdated = false;
   }
 }
 let state = "game";

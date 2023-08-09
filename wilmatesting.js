@@ -688,7 +688,8 @@ let platformsBlack = [];
 let movingPlatforms = [];
 let platformCount = 6;
 let platformCountBlack = 0;
-let movingPlatformCount = 0;
+let movingPlatformCount = 3;
+let platformCountsUpdated = false;
 
 function setup() {
   createCanvas(700, 500);
@@ -700,14 +701,12 @@ function setup() {
   highscore = 0;
   movingPlatform = new MovingPlatform((width, random(height), -2));
 
-  if (score > 10) {
-    platformCount = 2; // Increase regular platforms
-    platformCountBlack = 2; // Increase broken platforms
-    movingPlatformCount = 2; // Increase moving platforms
-  }
+  createPlatforms();
+}
 
-  // create the platforms
+// create the platforms
 
+function createPlatforms() {
   gap = height / platformCount;
   for (let i = 1; i < platformCount; i++) {
     platforms.push(
@@ -850,6 +849,20 @@ function gameScreen() {
     );
   }
 
+  if (score > 40 && !platformCountsUpdated) {
+    platformCount = 2;
+    platformCountBlack = 6;
+    createPlatforms();
+    platformCountsUpdated = true;
+  }
+
+  if (score > 80 && !platformCountsUpdated) {
+    platformCount = 1;
+    platformCountBlack = 4;
+    createPlatforms();
+    platformCountsUpdated = true;
+  }
+
   if (platforms.length > 0 && platforms[0].y > benny.y + 400) {
     platforms.splice(0, 1);
     score++;
@@ -880,6 +893,11 @@ function gameOverScreen() {
 
   if (keyIsDown(13)) {
     state = "start";
+    score = 0;
+    platformCount = 6;
+    platformCountBlack = 0;
+    movingPlatformCount = 3;
+    platformCountsUpdated = false;
   }
 }
 let state = "game";

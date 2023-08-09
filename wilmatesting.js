@@ -521,8 +521,8 @@ class Benny {
     this.height = 60;
 
     this.velocity = 0.3;
-    this.gravity = 0.3;
-    this.jumpForce = 20;
+    this.gravity = 0.4;
+    this.jumpForce = 15;
   }
 
   draw() {
@@ -676,6 +676,13 @@ class Ball {
     ellipse(this.x, this.y, this.radius * 2);
   }
 
+  reset() {
+    this.x = width / 2;
+    this.y = height / 2;
+    this.radius = 5;
+    this.speed = 5;
+  }
+
   update() {
     this.y += this.speed;
     if (this.y - this.radius > height) {
@@ -714,9 +721,8 @@ function setup() {
   createPlatforms();
 }
 
-// create the platforms
-
 function createPlatforms() {
+  //platforms
   gap = height / platformCount;
   for (let i = 1; i < platformCount; i++) {
     platforms.push(
@@ -725,7 +731,6 @@ function createPlatforms() {
   }
 
   //moving platforms
-
   movingGap = height / movingPlatformCount;
   for (let i = 1; i < movingPlatformCount; i++) {
     movingPlatforms.push(
@@ -745,9 +750,11 @@ function startScreen() {
   textSize(16);
   text("Press space __ to start game.", 250, 180);
   text("Use arrowkeys to make Benny go ", 235, 220);
-  text(" left and right", 310, 255);
+  text(" left and right.", 310, 255);
   text("Jump as high as you can", 260, 290);
-  text("Have a nice trip!", 300, 325);
+  text("and look out for the red balls.", 247, 325);
+  textSize(22);
+  text("Have a nice trip!", 275, 370);
 
   clouds(535, 70, 0.3);
   clouds(49, 393, 0.43);
@@ -891,7 +898,7 @@ function gameOverScreen() {
     score = 0;
   }
 }
-let state = "game";
+let state = "start";
 
 function draw() {
   if (state === "start") {

@@ -842,7 +842,7 @@ function gameOverScreen() {
   }
 }
 
-let state = "game";
+let state = "start";
 
 function draw() {
   if (state === "start") {

@@ -3,6 +3,7 @@ let acceleration = 0.2;
 let speed = 0;
 let isGameActive = false;
 let score;
+let highscore = 0;
 bennyX = 0;
 bennyY = 0;
 
@@ -455,62 +456,6 @@ class MovingPlatform {
   } */
 }
 
-class PlatformBlack {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
-
-    this.s = 0.6;
-    this.height = 15;
-    this.width = 120;
-  }
-
-  draw() {
-    fill(0, 0, 0);
-    noStroke();
-    fill(155, 118, 83);
-    rect(
-      this.x,
-      this.y + 96 * this.s,
-      this.width * this.s,
-      this.height * 2 * this.s,
-      10 * this.s
-    );
-    fill(0, 0, 0);
-    rect(
-      this.x,
-      this.y + 90 * this.s,
-      this.width * this.s,
-      this.height * this.s
-    );
-    fill(0, 0, 0);
-    rect(
-      this.x,
-      this.y + 90 * this.s,
-      (this.width / 8) * this.s,
-      this.height * this.s
-    );
-    rect(
-      this.x + 30 * this.s,
-      this.y + 90 * this.s,
-      (this.width / 8) * this.s,
-      this.height * this.s
-    );
-    rect(
-      this.x + 60 * this.s,
-      this.y + 90 * this.s,
-      (this.width / 8) * this.s,
-      this.height * this.s
-    );
-    rect(
-      this.x + 90 * this.s,
-      this.y + 90 * this.s,
-      (this.width / 8) * this.s,
-      this.height * this.s
-    );
-  }
-}
-
 class Benny {
   constructor(x, y) {
     this.x = x;
@@ -706,10 +651,12 @@ const ballSpawnRate = 100;
 
 function setup() {
   createCanvas(700, 500);
+  let highscore = localStorage.getItem("doodleJumpHighscore") || 0;
   platforms = [];
   movingPlatforms = [];
   balls = [];
   score = 0;
+  highscore = 0;
   movingPlatform = new MovingPlatform((width, random(height), -2));
 
   // create the platforms
@@ -780,6 +727,9 @@ function gameScreen() {
   textSize(30);
   textAlign(CENTER);
   text(score, 350, 60);
+  textSize(20);
+  fill(255);
+  text("Highscore: " + highscore, 350, 100);
   pop();
 
   if (benny.velocity > 20) {
@@ -849,6 +799,11 @@ function gameScreen() {
     const ballRadius = 15;
     const ballSpeed = random(2, 5);
     balls.push(new Ball(ballX, ballY, ballRadius, ballSpeed));
+  }
+  // highscore
+  if (score > highscore) {
+    highscore = score;
+    localStorage.setItem("bennyHighscore", highscore);
   }
 }
 

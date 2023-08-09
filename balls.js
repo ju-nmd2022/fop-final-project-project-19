@@ -1,11 +1,4 @@
-let velocity = 1;
-let acceleration = 0.2;
-let speed = 0;
-let isGameActive = false;
-let score;
 let highscore = 0;
-bennyX = 0;
-bennyY = 0;
 
 //text for lose screen
 function gameOver(x, y, s) {
@@ -651,7 +644,7 @@ const ballSpawnRate = 100;
 
 function setup() {
   createCanvas(700, 500);
-  let highscore = localStorage.getItem("doodleJumpHighscore") || 0;
+  let highscore = localStorage.getItem("bennyHighscore") || 0;
   platforms = [];
   movingPlatforms = [];
   balls = [];
@@ -691,7 +684,7 @@ function startScreen() {
   text("Use arrowkeys to make Benny go ", 235, 220);
   text(" left and right", 310, 255);
   text("Jump as high as you can", 260, 290);
-  text("Have a nice trip!", 300, 325);
+  text("Have a nice trip, but watch out for!", 300, 325);
 
   clouds(535, 70, 0.3);
   clouds(49, 393, 0.43);
@@ -819,12 +812,13 @@ function gameOverScreen() {
   textSize(19);
   text("PRESS ENTER TO TRY AGAIN", 215, 290);
   text(`You scored ${score}`, 293, 330);
-  textSize(25);
+  textSize(15);
+  text("Highscore: " + highscore, 307, 360);
   if (keyIsDown(13)) {
     state = "start";
   }
 }
-let state = "start";
+let state = "lose";
 
 function draw() {
   if (state === "start") {

@@ -8,6 +8,19 @@ let highscore = 0;
 let balls = [];
 const ballSpawnRate = 100;
 
+function setup() {
+  createCanvas(700, 500);
+  frameRate(60);
+  let highscore = localStorage.getItem("bennyHighscore") || 0;
+  platforms = [];
+  movingPlatforms = [];
+  score = 0;
+  highscore = 0;
+  movingPlatform = new MovingPlatform((width, random(height), -2));
+
+  createPlatforms();
+}
+
 function clouds(x, y, s) {
   fill(255, 255, 255);
   noStroke();
@@ -640,18 +653,6 @@ class Ball {
 
 let benny = new Benny(0, 0);
 
-function setup() {
-  createCanvas(700, 500);
-  let highscore = localStorage.getItem("bennyHighscore") || 0;
-  platforms = [];
-  movingPlatforms = [];
-  score = 0;
-  highscore = 0;
-  movingPlatform = new MovingPlatform((width, random(height), -2));
-
-  createPlatforms();
-}
-
 function createPlatforms() {
   //platforms
   gap = height / platformCount;
@@ -841,7 +842,7 @@ function gameOverScreen() {
   }
 }
 
-let state = "start";
+let state = "game";
 
 function draw() {
   if (state === "start") {

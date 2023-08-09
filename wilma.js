@@ -700,12 +700,6 @@ function setup() {
   highscore = 0;
   movingPlatform = new MovingPlatform((width, random(height), -2));
 
-  if (score > 10) {
-    platformCount = 2; // Increase regular platforms
-    platformCountBlack = 2; // Increase broken platforms
-    movingPlatformCount = 2; // Increase moving platforms
-  }
-
   // create the platforms
 
   gap = height / platformCount;

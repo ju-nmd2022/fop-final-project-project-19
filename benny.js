@@ -1,11 +1,12 @@
-let velocity = 1;
-let acceleration = 0.2;
-let speed = 0;
-let isGameActive = false;
-let score = 0;
+let gap;
+let movingGap;
+let platforms = [];
+let movingPlatforms = [];
+let platformCount = 5;
+let movingPlatformCount = 2;
 let highscore = 0;
-bennyX = 0;
-bennyY = 0;
+let balls = [];
+const ballSpawnRate = 100;
 
 function clouds(x, y, s) {
   fill(255, 255, 255);
@@ -572,8 +573,8 @@ class Benny {
         this.y + this.height >= platform.y &&
         this.y + this.height <= platform.y + platform.height
       ) {
-        let minX = platform.x - this.width;
-        let maxX = platform.x + platform.width;
+        let minX = platform.x - 20;
+        let maxX = platform.x + 50;
 
         if (this.x >= minX && this.x <= maxX) {
           this.jump();
@@ -586,8 +587,8 @@ class Benny {
         this.y + this.height >= movingPlatform.y &&
         this.y + this.height <= movingPlatform.y + movingPlatform.height
       ) {
-        let minX = movingPlatform.x - this.width;
-        let maxX = movingPlatform.x + movingPlatform.width;
+        let minX = movingPlatform.x - 20;
+        let maxX = movingPlatform.x + 50;
 
         if (this.x >= minX && this.x <= maxX) {
           this.jump();
@@ -637,16 +638,6 @@ class Ball {
 }
 
 let benny = new Benny(0, 0);
-
-let gap;
-let gapBlack;
-let movingGap;
-let platforms = [];
-let movingPlatforms = [];
-let platformCount = 5;
-let movingPlatformCount = 2;
-let balls = [];
-const ballSpawnRate = 100;
 
 function setup() {
   createCanvas(700, 500);

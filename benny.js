@@ -568,6 +568,7 @@ class Benny {
       this.x += 8;
     }
 
+    // Help from Joel Blomén, saras friend
     for (let platform of platforms) {
       if (
         this.y + this.height >= platform.y &&
@@ -619,7 +620,7 @@ class Ball {
     this.x = width / 2;
     this.y = height / 2;
     this.radius = 5;
-    this.speed = 5;
+    this.speed = 3;
   }
 
   update() {
@@ -669,6 +670,36 @@ function createPlatforms() {
   }
 }
 
+// help from chatgtp
+// Draw and update balls
+function createBalls() {
+  for (let i = balls.length - 1; i >= 0; i--) {
+    const ball = balls[i];
+    ball.draw();
+    ball.update();
+
+    if (ball.y > height) {
+      balls.splice(i, 1);
+    } else if (ball.checkCollision(benny)) {
+      isGameActive = false;
+      state = "lose";
+    }
+  }
+
+  // Create new balls periodically
+  if (frameCount % ballSpawnRate === 0) {
+    let ballX = random(150, 480);
+    let ballY = random(-10000, -5000);
+    let ballRadius = 15;
+    let ballSpeed = random(2, 5);
+    balls.push(new Ball(ballX, ballY, ballRadius, ballSpeed));
+  }
+}
+
+function resetBalls() {
+  balls = [];
+}
+
 function startScreen() {
   background(135, 206, 235);
   fill(30, 63, 102);
@@ -704,6 +735,7 @@ function startScreen() {
     benny = new Benny(0, 0);
     setup();
     loop();
+    createBalls();
     score = 0;
     state = "game";
   }
@@ -770,29 +802,7 @@ function gameScreen() {
     );
   }
 
-  // help from chatgtp
-  // Draw and update balls
-  for (let i = balls.length - 1; i >= 0; i--) {
-    const ball = balls[i];
-    ball.draw();
-    ball.update();
-
-    if (ball.y > height) {
-      balls.splice(i, 1);
-    } else if (ball.checkCollision(benny)) {
-      isGameActive = false;
-      state = "lose";
-    }
-  }
-
-  // Create new balls periodically
-  if (frameCount % ballSpawnRate === 0) {
-    const ballX = random(150, 480);
-    const ballY = random(-10000, -5000);
-    const ballRadius = 15;
-    const ballSpeed = random(2, 5);
-    balls.push(new Ball(ballX, ballY, ballRadius, ballSpeed));
-  }
+  createBalls();
 
   if (platforms.length > 0 && platforms[0].y > benny.y + 400) {
     platforms.splice(0, 1);
@@ -826,6 +836,7 @@ function gameOverScreen() {
   textSize(25);
 
   if (keyIsDown(13)) {
+    resetBalls();
     state = "start";
   }
 }

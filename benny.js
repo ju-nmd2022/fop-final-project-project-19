@@ -735,7 +735,6 @@ function startScreen() {
   if (keyIsDown(32)) {
     benny = new Benny(0, 0);
     setup();
-    loop();
     createBalls();
     score = 0;
     state = "game";

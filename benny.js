@@ -566,7 +566,7 @@ class Benny {
   }
 
   update(platforms) {
-    if (this.x + this.width < 0) this.x = 550; // add this screen wrapping
+    // add this screen wrapping
     if (this.x > 520) this.x = 150;
     if (this.x < 150) this.x = 520;
     if (this.velocity < -9) this.velocity = -9;
